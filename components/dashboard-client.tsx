@@ -346,43 +346,33 @@ export function DashboardClient({
               </div>
             </header>
 
-            <section className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {[
-                ["Entrants", String(totalEntrants), "+2 today"],
-                ["Active", String(activeCount), "- as time passes"],
-                ["Paid", String(paidCount), `${Math.round((paidCount / totalEntrants) * 100)}% secured`],
-                ["Pool", `$${potUsd}`, "$10 each paid"],
-              ].map(([label, value, meta]) => (
-                <article key={label} className="rounded-2xl border border-[#edf0f4] bg-[#fbfbfc] p-3">
-                  <p className="text-xs font-medium text-zinc-500">{label}</p>
-                  <p className="mt-1 text-2xl font-semibold tracking-tight">{value}</p>
-                  <p className="mt-1 text-[11px] text-[#d7683f]">{meta}</p>
-                </article>
-              ))}
-            </section>
-
-            <section className="mt-4 rounded-2xl border border-[#eceff4] bg-[#fbfcff] p-3 sm:p-4">
-              <div className="mb-2 flex items-center justify-between">
-                <h2 className="text-base font-semibold sm:text-lg">Face-off race track</h2>
-                <span className="text-xs text-zinc-500">{countdownLabel(dueDateMs, nowMs)}</span>
+            <section className="mt-2 rounded-2xl border border-[#e7ebf2] bg-gradient-to-b from-[#ffffff] to-[#f8fafe] p-3 shadow-[0_10px_24px_rgba(33,35,39,0.07)] sm:p-4">
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h2 className="text-lg font-semibold tracking-tight sm:text-xl">Face-off race track</h2>
+                  <p className="text-xs text-zinc-500">Primary board - this decides who wins.</p>
+                </div>
+                <span className="rounded-full border border-[#eceff4] bg-white px-3 py-1 text-xs font-medium text-zinc-600">
+                  {countdownLabel(dueDateMs, nowMs)}
+                </span>
               </div>
-              <div className="mb-4 h-2 rounded-full bg-[#f1f3f7]">
+              <div className="mb-4 h-2.5 rounded-full bg-[#edf0f6]">
                 <div
-                  className="h-2 rounded-full bg-gradient-to-r from-[#ffb08e] to-[#ff7d4f]"
+                  className="h-2.5 rounded-full bg-gradient-to-r from-[#ffb08e] to-[#ff7d4f]"
                   style={{ width: `${scheduleProgress}%` }}
                 />
               </div>
 
-              <div className="max-h-[300px] space-y-2 overflow-auto pr-1 sm:max-h-[370px]">
+              <div className="max-h-[420px] space-y-2 overflow-auto pr-1 sm:max-h-[520px]">
                 {raceLanes.map((lane) => (
                   <div
                     key={lane.id}
-                    className="relative rounded-xl border border-[#edf0f4] bg-white p-2.5 shadow-[0_4px_12px_rgba(33,35,39,0.05)]"
+                    className="relative rounded-xl border border-[#eaedf3] bg-white p-3 shadow-[0_5px_14px_rgba(33,35,39,0.06)]"
                   >
                     <div className="mb-2 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-8 w-8" />
-                        <p className={`text-xs font-semibold sm:text-sm ${lane.isEliminated ? "text-zinc-500" : ""}`}>
+                        <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-9 w-9 sm:h-10 sm:w-10" />
+                        <p className={`text-sm font-semibold ${lane.isEliminated ? "text-zinc-500" : ""}`}>
                           {lane.name}
                         </p>
                       </div>
@@ -395,7 +385,7 @@ export function DashboardClient({
                       </span>
                     </div>
 
-                    <div className="relative h-9 rounded-full bg-[repeating-linear-gradient(90deg,#f5f6f9_0px,#f5f6f9_24px,#ffffff_24px,#ffffff_48px)]">
+                    <div className="relative h-10 rounded-full bg-[repeating-linear-gradient(90deg,#f5f6f9_0px,#f5f6f9_24px,#ffffff_24px,#ffffff_48px)] sm:h-11">
                       <div className="absolute right-2 top-0 h-full w-1 rounded-full bg-[#ff8d62]" />
                       <div
                         className="absolute top-1/2 transition-all duration-1000 ease-out"
@@ -404,7 +394,7 @@ export function DashboardClient({
                         <FaceImage
                           name={lane.name}
                           eliminated={lane.isEliminated}
-                          sizeClass="h-9 w-9 sm:h-10 sm:w-10"
+                          sizeClass="h-10 w-10 sm:h-11 sm:w-11"
                           decorative
                         />
                       </div>
@@ -412,6 +402,21 @@ export function DashboardClient({
                   </div>
                 ))}
               </div>
+            </section>
+
+            <section className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {[
+                ["Entrants", String(totalEntrants), "+2 today"],
+                ["Active", String(activeCount), "- as time passes"],
+                ["Paid", String(paidCount), `${Math.round((paidCount / totalEntrants) * 100)}% secured`],
+                ["Pool", `$${potUsd}`, "$10 each paid"],
+              ].map(([label, value, meta]) => (
+                <article key={label} className="rounded-xl border border-[#edf0f4] bg-[#fbfbfc] p-2.5 sm:p-3">
+                  <p className="text-[11px] font-medium text-zinc-500">{label}</p>
+                  <p className="mt-1 text-xl font-semibold tracking-tight sm:text-2xl">{value}</p>
+                  <p className="mt-1 text-[10px] text-[#d7683f]">{meta}</p>
+                </article>
+              ))}
             </section>
 
             <section className="mt-4 grid gap-3 xl:grid-cols-2">
