@@ -1,0 +1,9 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="256" fill="#DFF2E5"/>
+  <circle cx="256" cy="204" r="92" fill="#A6D7B9"/>
+  <path d="M118 398C118 324 178 264 252 264H260C334 264 394 324 394 398V420H118V398Z" fill="#8BC7A5"/>
+  <circle cx="220" cy="198" r="10" fill="#336347"/>
+  <circle cx="292" cy="198" r="10" fill="#336347"/>
+  <path d="M214 246C225 256 241 262 256 262C271 262 287 256 298 246" stroke="#336347" stroke-width="12" stroke-linecap="round"/>
+  <text x="256" y="474" text-anchor="middle" fill="#2C5A3D" font-family="Arial, sans-serif" font-size="30" font-weight="700">Upload face image</text>
+</svg>

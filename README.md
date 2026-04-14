@@ -6,6 +6,10 @@ Public dashboard for the family betting pool:
 - Pot summary using fixed $10 entry
 - Odds-style distribution by guessed date
 - Countdown + winner state
+- Intro overlay animation with giant die-cut baby face
+- Carnival race board with live knockout + grayscale elimination
+- Due-date confetti celebration
+- Dramatic browser audio for eliminations
 
 ## Local Development
 
@@ -35,6 +39,22 @@ Edit `lib/config.ts`:
 
 When baby arrives, set `actualBirthIso` to an ISO timestamp (example: `2026-04-19T09:14:00-07:00`).  
 The leaderboard will automatically switch from projected closest-to-due-date to actual closest-to-birth.
+
+## Image Uploads (faces + intro)
+
+The app auto-loads face images from `public/faces/` using each participant's slug:
+
+- `Tanner Larson` -> `public/faces/tanner-larson.png`
+- `Pepe Le Pew (Uncle Rex)` -> `public/faces/pepe-le-pew-uncle-rex.png`
+- `Kalina's Future Dog` -> `public/faces/kalina-s-future-dog.png`
+
+The intro overlay image should be:
+- `public/faces/baby-intro.png`
+
+If any image is missing, the app falls back to:
+- `public/faces/placeholder-face.svg`
+
+Recommended image format: square PNG (at least 512x512).
 
 ## Deploy
 

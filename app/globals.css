@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6fbf7;
+  --foreground: #0f1f14;
 }
 
 @theme inline {
@@ -14,13 +14,75 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #09130c;
+    --foreground: #eaf7ef;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(43, 92, 63, 0.2), rgba(10, 20, 14, 0.85));
+  animation: introFadeOut 15s ease forwards;
+  pointer-events: none;
+}
+
+.intro-baby {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: center;
+  animation: introPop 15s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.intro-baby-face {
+  width: min(75vw, 420px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  clip-path: path(
+    "M210 10 C305 10 390 85 390 190 C390 290 305 380 210 400 C110 380 30 290 30 190 C30 85 115 10 210 10 Z"
+  );
+  border: 7px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 28px 50px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes introPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.15);
+  }
+  14% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  78% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes introFadeOut {
+  0% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
