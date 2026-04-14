@@ -228,7 +228,7 @@ export function DashboardClient({
 
   return (
     <div
-      className="min-h-screen bg-[radial-gradient(circle_at_top,_#eefcf1_0%,_#f9faf7_46%,_#ffffff_100%)] px-4 py-6 text-zinc-900 sm:px-8"
+      className="min-h-screen bg-[radial-gradient(circle_at_top,_#eefcf1_0%,_#f9faf7_46%,_#ffffff_100%)] px-3 py-4 pb-12 text-zinc-900 sm:px-8 sm:py-6"
       onClick={armAudio}
     >
       {introVisible ? (
@@ -252,21 +252,23 @@ export function DashboardClient({
         </div>
       ) : null}
 
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-6">
-        <header className="rounded-[28px] border border-[#dbeadd] bg-white/90 p-6 shadow-[0_10px_30px_rgba(26,45,34,0.08)]">
+      <main className="mx-auto flex w-full max-w-6xl flex-col gap-4 sm:gap-6">
+        <header className="rounded-[22px] border border-[#dbeadd] bg-white/90 p-4 shadow-[0_10px_30px_rgba(26,45,34,0.08)] sm:rounded-[28px] sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#5f8f72]">
                 Baby Pool
               </p>
-              <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:mt-2 sm:text-4xl">
                 Picnic Derby Dashboard
               </h1>
-              <p className="mt-2 text-sm text-zinc-600">Due date: {formatDateTime(dueDateMs)}</p>
+              <p className="mt-1 text-xs text-zinc-600 sm:mt-2 sm:text-sm">
+                Due date: {formatDateTime(dueDateMs)}
+              </p>
             </div>
             <button
               type="button"
-              className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
+              className={`w-full rounded-full px-5 py-2.5 text-sm font-semibold transition sm:w-auto ${
                 soundArmed
                   ? "bg-[#7ecfa8] text-[#174a2e]"
                   : "bg-zinc-200 text-zinc-700 hover:bg-zinc-300"
@@ -281,7 +283,7 @@ export function DashboardClient({
           </div>
         </header>
 
-        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {[
             ["Entrants", String(totalEntrants)],
             ["Paid", String(paidCount)],
@@ -290,18 +292,18 @@ export function DashboardClient({
           ].map(([label, value]) => (
             <article
               key={label}
-              className="rounded-[22px] border border-[#dfebe2] bg-white/95 p-5 shadow-[0_8px_25px_rgba(26,45,34,0.06)]"
+              className="rounded-[18px] border border-[#dfebe2] bg-white/95 p-3 shadow-[0_8px_25px_rgba(26,45,34,0.06)] sm:rounded-[22px] sm:p-5"
             >
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">{label}</p>
-              <p className="mt-2 text-3xl font-semibold tracking-tight">{value}</p>
+              <p className="mt-1 text-2xl font-semibold tracking-tight sm:mt-2 sm:text-3xl">{value}</p>
             </article>
           ))}
         </section>
 
         <section className="grid gap-4 lg:grid-cols-2">
-          <article className="rounded-[24px] border border-[#dfece3] bg-white p-5 shadow-[0_8px_24px_rgba(26,45,34,0.06)]">
-            <h2 className="text-xl font-semibold">Countdown and race status</h2>
-            <div className="mt-4 space-y-2 text-sm text-zinc-700">
+          <article className="rounded-[20px] border border-[#dfece3] bg-white p-4 shadow-[0_8px_24px_rgba(26,45,34,0.06)] sm:rounded-[24px] sm:p-5">
+            <h2 className="text-lg font-semibold sm:text-xl">Countdown and race status</h2>
+            <div className="mt-3 space-y-2 text-sm text-zinc-700 sm:mt-4">
               <p>
                 <span className="font-semibold text-zinc-500">Status:</span>{" "}
                 {isActualResult ? "Official results unlocked" : "Live derby in progress"}
@@ -323,9 +325,9 @@ export function DashboardClient({
             </div>
           </article>
 
-          <article className="rounded-[24px] border border-[#dfece3] bg-white p-5 shadow-[0_8px_24px_rgba(26,45,34,0.06)]">
-            <h2 className="text-xl font-semibold">Odds by guessed date</h2>
-            <ul className="mt-4 space-y-3">
+          <article className="rounded-[20px] border border-[#dfece3] bg-white p-4 shadow-[0_8px_24px_rgba(26,45,34,0.06)] sm:rounded-[24px] sm:p-5">
+            <h2 className="text-lg font-semibold sm:text-xl">Odds by guessed date</h2>
+            <ul className="mt-3 space-y-3 sm:mt-4">
               {oddsByDate.map((item) => (
                 <li key={item.dateKey}>
                   <div className="mb-1 flex justify-between text-sm">
@@ -346,20 +348,25 @@ export function DashboardClient({
           </article>
         </section>
 
-        <section className="rounded-[26px] border border-[#dfece3] bg-white p-5 shadow-[0_10px_26px_rgba(26,45,34,0.06)]">
+        <section className="rounded-[22px] border border-[#dfece3] bg-white p-4 shadow-[0_10px_26px_rgba(26,45,34,0.06)] sm:rounded-[26px] sm:p-5">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Carnival horse race</h2>
-            <p className="text-xs uppercase tracking-[0.14em] text-zinc-500">Live knockout mode</p>
+            <h2 className="text-lg font-semibold sm:text-xl">Carnival horse race</h2>
+            <p className="text-[10px] uppercase tracking-[0.14em] text-zinc-500 sm:text-xs">
+              Live knockout mode
+            </p>
           </div>
 
           <div className="space-y-3">
             {raceLanes.map((lane) => (
-              <div key={lane.id} className="relative rounded-2xl border border-[#e7efe9] bg-[#fbfdfb] p-3">
+              <div
+                key={lane.id}
+                className="relative overflow-hidden rounded-xl border border-[#e7efe9] bg-[#fbfdfb] p-2.5 sm:rounded-2xl sm:p-3"
+              >
                 <div className="mb-2 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <FaceImage name={lane.name} eliminated={lane.isEliminated} />
                     <div>
-                      <p className={`font-semibold ${lane.isEliminated ? "text-zinc-500" : ""}`}>
+                      <p className={`text-sm font-semibold sm:text-base ${lane.isEliminated ? "text-zinc-500" : ""}`}>
                         {lane.name}
                       </p>
                       <p className="text-xs text-zinc-500">
@@ -368,7 +375,7 @@ export function DashboardClient({
                     </div>
                   </div>
                   <p
-                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                    className={`hidden rounded-full px-3 py-1 text-xs font-semibold sm:inline-flex ${
                       lane.isEliminated ? "bg-zinc-200 text-zinc-600" : "bg-[#ddf4e7] text-[#1e5d3b]"
                     }`}
                   >
@@ -376,14 +383,14 @@ export function DashboardClient({
                   </p>
                 </div>
 
-                <div className="relative h-8 rounded-full bg-[repeating-linear-gradient(90deg,#edf5ef_0px,#edf5ef_28px,#f9fcfa_28px,#f9fcfa_56px)]">
+                <div className="relative h-7 rounded-full bg-[repeating-linear-gradient(90deg,#edf5ef_0px,#edf5ef_28px,#f9fcfa_28px,#f9fcfa_56px)] sm:h-8">
                   <div className="absolute right-2 top-0 h-full w-1 rounded-full bg-[#6ec79d]" />
                   <div
                     className="absolute top-1/2 flex -translate-y-1/2 items-center gap-1 transition-all duration-1000 ease-out"
                     style={{ left: `${lane.progress}%`, transform: "translate(-50%, -50%)" }}
                   >
-                    <span className={`text-2xl ${lane.isEliminated ? "grayscale" : ""}`}>🐎</span>
-                    <span className={`text-xl ${lane.isEliminated ? "grayscale" : ""}`}>🎠</span>
+                    <span className={`text-xl sm:text-2xl ${lane.isEliminated ? "grayscale" : ""}`}>🐎</span>
+                    <span className={`text-lg sm:text-xl ${lane.isEliminated ? "grayscale" : ""}`}>🎠</span>
                   </div>
                 </div>
               </div>
@@ -392,15 +399,15 @@ export function DashboardClient({
         </section>
 
         <section className="grid gap-4 lg:grid-cols-2">
-          <article className="rounded-[24px] border border-[#dfece3] bg-white p-5 shadow-[0_8px_24px_rgba(26,45,34,0.06)]">
-            <h2 className="text-xl font-semibold">Leaderboard</h2>
-            <ol className="mt-4 space-y-2">
+          <article className="rounded-[20px] border border-[#dfece3] bg-white p-4 shadow-[0_8px_24px_rgba(26,45,34,0.06)] sm:rounded-[24px] sm:p-5">
+            <h2 className="text-lg font-semibold sm:text-xl">Leaderboard</h2>
+            <ol className="mt-3 space-y-2 sm:mt-4">
               {leaderboard.map((entry, index) => (
                 <li
                   key={entry.id}
                   className="flex items-center justify-between rounded-xl border border-[#edf3ee] p-3"
                 >
-                  <p className="font-medium">
+                  <p className="text-sm font-medium sm:text-base">
                     #{index + 1} {entry.name}
                   </p>
                   <p className="text-sm font-semibold text-zinc-700">{formatDuration(entry.deltaMs)}</p>
@@ -409,9 +416,9 @@ export function DashboardClient({
             </ol>
           </article>
 
-          <article className="rounded-[24px] border border-[#dfece3] bg-white p-5 shadow-[0_8px_24px_rgba(26,45,34,0.06)]">
-            <h2 className="text-xl font-semibold">Timeline</h2>
-            <ol className="mt-4 space-y-2">
+          <article className="rounded-[20px] border border-[#dfece3] bg-white p-4 shadow-[0_8px_24px_rgba(26,45,34,0.06)] sm:rounded-[24px] sm:p-5">
+            <h2 className="text-lg font-semibold sm:text-xl">Timeline</h2>
+            <ol className="mt-3 space-y-2 sm:mt-4">
               {[...bets]
                 .sort((a, b) => a.guessMs - b.guessMs)
                 .map((bet) => (
@@ -420,7 +427,7 @@ export function DashboardClient({
                     className="flex items-center justify-between rounded-xl border border-[#edf3ee] p-3"
                   >
                     <div>
-                      <p className="font-medium">{bet.name}</p>
+                      <p className="text-sm font-medium sm:text-base">{bet.name}</p>
                       <p className="text-xs text-zinc-500">{formatDateTime(bet.guessMs)}</p>
                     </div>
                     <span
