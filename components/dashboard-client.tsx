@@ -67,6 +67,19 @@ function countdownLabel(targetMs: number, nowMs: number): string {
   return `${pretty} remaining`;
 }
 
+function formatVote(dateGuess: string, timeGuess: string): string {
+  const parsed = new Date(`${dateGuess} ${timeGuess}`);
+  if (Number.isNaN(parsed.getTime())) {
+    return `${dateGuess} at ${timeGuess}`;
+  }
+  return parsed.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
@@ -184,6 +197,9 @@ export function DashboardClient({
   }, [bets, dueDateMs, nowMs]);
 
   const activeCount = totalEntrants - eliminated.size;
+  const expectedDueMs = dueDateMs - 2 * 24 * 60 * 60 * 1000;
+  const expectedDueCountdown = countdownLabel(expectedDueMs, nowMs);
+  const inductionCountdown = countdownLabel(dueDateMs, nowMs);
 
   const armAudio = () => {
     if (audioCtxRef.current) {
@@ -315,10 +331,12 @@ export function DashboardClient({
                 <article className="rounded-xl border border-[#e7e2ff] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Expected due date</p>
                   <p className="text-base font-bold text-zinc-900 sm:text-lg">April 16</p>
+                  <p className="mt-0.5 text-[11px] text-zinc-500">{expectedDueCountdown}</p>
                 </article>
                 <article className="rounded-xl border border-[#cdeeff] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Induction date</p>
                   <p className="text-base font-bold text-zinc-900 sm:text-lg">April 18</p>
+                  <p className="mt-0.5 text-[11px] text-zinc-500">{inductionCountdown}</p>
                 </article>
               </div>
             </section>
@@ -369,9 +387,10 @@ export function DashboardClient({
                     <div className="mb-2 flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-12 w-12 sm:h-14 sm:w-14" />
-                        <p className={`text-sm font-semibold ${lane.isEliminated ? "text-zinc-500" : ""}`}>
-                          {lane.name}
-                        </p>
+                        <div>
+                          <p className={`text-sm font-semibold ${lane.isEliminated ? "text-zinc-500" : ""}`}>{lane.name}</p>
+                          <p className="text-xs font-medium text-zinc-600">Voted: {formatVote(lane.dateGuess, lane.timeGuess)}</p>
+                        </div>
                       </div>
                       <span
                         className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
@@ -401,7 +420,7 @@ export function DashboardClient({
               </div>
             </section>
 
-            <section className="mt-3 grid grid-cols-2 gap-2 opacity-85 sm:grid-cols-4">
+            <section className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {[
                 ["Entrants", String(totalEntrants), "+2 today"],
                 ["Active", String(activeCount), "- as time passes"],
@@ -416,15 +435,18 @@ export function DashboardClient({
               ))}
             </section>
 
-            <section className="mt-4 grid gap-3 opacity-85 xl:grid-cols-2">
+            <section className="mt-4 grid gap-3 xl:grid-cols-2">
               <article className="rounded-2xl border border-[#edf0f4] bg-[#fbfcff] p-3">
                 <h3 className="text-sm font-semibold sm:text-base">Leaderboard</h3>
                 <ol className="mt-2 space-y-2">
                   {leaderboard.slice(0, 8).map((entry, index) => (
                     <li key={entry.id} className="flex items-center justify-between rounded-xl bg-white p-2 text-sm">
-                      <p className="font-medium">
-                        #{index + 1} {entry.name}
-                      </p>
+                      <div className="min-w-0">
+                        <p className="truncate font-medium">
+                          #{index + 1} {entry.name}
+                        </p>
+                        <p className="truncate text-xs font-medium text-zinc-600">Voted: {formatVote(entry.dateGuess, entry.timeGuess)}</p>
+                      </div>
                       <p className="text-xs font-semibold text-zinc-600">{formatDuration(entry.deltaMs)}</p>
                     </li>
                   ))}
@@ -462,6 +484,7 @@ export function DashboardClient({
                 <div className="rounded-lg bg-white p-2">
                   <p className="text-zinc-500">Favorite</p>
                   <p className="font-semibold">{winner?.name ?? "TBD"}</p>
+                  {winner ? <p className="mt-0.5 text-xs font-medium text-zinc-600">Voted: {formatVote(winner.dateGuess, winner.timeGuess)}</p> : null}
                 </div>
                 <div className="rounded-lg bg-white p-2">
                   <p className="text-zinc-500">Pool</p>
@@ -478,6 +501,7 @@ export function DashboardClient({
                     <FaceImage name={entry.name} eliminated={eliminated.has(entry.id)} sizeClass="h-7 w-7" decorative />
                     <div className="min-w-0">
                       <p className="truncate text-xs font-medium">{entry.name}</p>
+                      <p className="truncate text-xs font-medium text-zinc-600">Voted: {formatVote(entry.dateGuess, entry.timeGuess)}</p>
                       <p className="text-[11px] text-zinc-500">{formatDuration(entry.deltaMs)} from target</p>
                     </div>
                   </div>
