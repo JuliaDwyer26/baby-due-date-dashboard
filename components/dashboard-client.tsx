@@ -338,7 +338,7 @@ export function DashboardClient({
           <section className="rounded-[22px] border border-[#e8ebf0] bg-white p-4 sm:p-5">
             <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Hello, Margaret</h1>
+                <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Hello, Baby Betters!</h1>
                 <p className="text-sm text-zinc-500">Track the race progress as we get closer to due date.</p>
               </div>
               <div className="rounded-full border border-[#eceff4] bg-[#f8fafc] px-3 py-1.5 text-xs font-medium text-zinc-600">
