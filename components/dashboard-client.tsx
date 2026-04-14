@@ -269,7 +269,7 @@ export function DashboardClient({
 
   return (
     <div
-      className="min-h-screen bg-white px-2 py-3 text-[#f2f2f2] sm:px-8 sm:py-8"
+      className="min-h-screen bg-white px-2 py-3 text-zinc-900 sm:px-8 sm:py-8"
       onClick={armAudio}
     >
       {introVisible ? (
@@ -296,44 +296,7 @@ export function DashboardClient({
       ) : null}
 
       <main className="mx-auto w-full max-w-[1320px] rounded-[28px] border border-white/10 bg-[#ffffff]/95 p-2 sm:p-3">
-        <div className="grid min-h-[760px] gap-2 lg:grid-cols-[220px_minmax(0,1fr)_300px]">
-          <aside className="hidden rounded-[22px] border border-[#2e2e39] bg-[#1f1f27] px-4 py-5 text-zinc-100 lg:flex lg:flex-col">
-            <div className="mb-8">
-              <p className="text-xl font-semibold tracking-tight text-white">baby pool</p>
-              <p className="text-xs text-zinc-400">figma mode</p>
-            </div>
-            <nav className="space-y-2 text-sm">
-              {["Overview", "Race Track", "Leaderboard", "Timeline", "Settings"].map((item, index) => (
-                <button
-                  key={item}
-                  type="button"
-                  className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left transition ${
-                    index === 0
-                      ? "bg-[linear-gradient(135deg,#f24e1e,#a259ff,#18a0fb)] font-semibold text-white"
-                      : "text-zinc-400 hover:bg-[#2a2a34] hover:text-white"
-                  }`}
-                >
-                  <span className="text-xs">{index === 0 ? "●" : "○"}</span>
-                  {item}
-                </button>
-              ))}
-            </nav>
-            <div className="mt-auto rounded-2xl bg-[#2a2a34] p-3">
-              <p className="text-xs text-zinc-400">Sound</p>
-              <button
-                type="button"
-                className={`mt-2 w-full rounded-xl px-3 py-2 text-xs font-semibold ${
-                  soundArmed ? "bg-[#7b61ff] text-white" : "bg-[#f2f3f6] text-zinc-800"
-                }`}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  armAudio();
-                }}
-              >
-                {soundArmed ? "Dramatic ON" : "Enable FX"}
-              </button>
-            </div>
-          </aside>
+        <div className="grid min-h-[760px] gap-2 lg:grid-cols-[minmax(0,1fr)_300px]">
 
           <section className="rounded-[22px] border border-[#ececf1] bg-white p-4 sm:p-5">
             <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
