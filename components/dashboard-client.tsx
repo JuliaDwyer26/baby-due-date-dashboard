@@ -254,7 +254,7 @@ export function DashboardClient({
       particleCount: 220,
       spread: 90,
       origin: { y: 0.6 },
-      colors: ["#ff8f66", "#ffb391", "#ffd2be", "#ffe8dd"],
+      colors: ["#7b61ff", "#a259ff", "#18a0fb", "#0acf83", "#ff7262", "#f24e1e"],
     });
   }, [dueDateMs, nowMs]);
 
@@ -269,7 +269,7 @@ export function DashboardClient({
 
   return (
     <div
-      className="min-h-screen bg-[radial-gradient(circle_at_top,_#f9f9fb_0%,_#f2f3f7_45%,_#eceff4_100%)] px-2 py-3 text-zinc-900 sm:px-8 sm:py-8"
+      className="min-h-screen bg-[radial-gradient(circle_at_20%_0%,_#2a2a34_0%,_#1f1f28_45%,_#17171d_100%)] px-2 py-3 text-zinc-900 sm:px-8 sm:py-8"
       onClick={armAudio}
     >
       {introVisible ? (
@@ -295,12 +295,12 @@ export function DashboardClient({
         </div>
       ) : null}
 
-      <main className="mx-auto w-full max-w-[1320px] rounded-[28px] border border-white/60 bg-[#f5f6f8]/95 p-2 shadow-[0_30px_70px_rgba(26,33,52,0.18)] sm:p-3">
+      <main className="mx-auto w-full max-w-[1320px] rounded-[28px] border border-white/10 bg-[#ffffff]/95 p-2 shadow-[0_30px_70px_rgba(0,0,0,0.4)] sm:p-3">
         <div className="grid min-h-[760px] gap-2 lg:grid-cols-[220px_minmax(0,1fr)_300px]">
-          <aside className="hidden rounded-[22px] border border-[#e8ebf0] bg-white px-4 py-5 lg:flex lg:flex-col">
+          <aside className="hidden rounded-[22px] border border-[#2e2e39] bg-[#1f1f27] px-4 py-5 text-zinc-100 lg:flex lg:flex-col">
             <div className="mb-8">
-              <p className="text-xl font-semibold tracking-tight text-[#212327]">picnic pool</p>
-              <p className="text-xs text-zinc-500">race dashboard</p>
+              <p className="text-xl font-semibold tracking-tight text-white">baby pool</p>
+              <p className="text-xs text-zinc-400">figma mode</p>
             </div>
             <nav className="space-y-2 text-sm">
               {["Overview", "Race Track", "Leaderboard", "Timeline", "Settings"].map((item, index) => (
@@ -309,8 +309,8 @@ export function DashboardClient({
                   type="button"
                   className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left transition ${
                     index === 0
-                      ? "bg-[#fff0e8] font-semibold text-[#ba5831]"
-                      : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800"
+                      ? "bg-[linear-gradient(135deg,#f24e1e,#a259ff,#18a0fb)] font-semibold text-white"
+                      : "text-zinc-400 hover:bg-[#2a2a34] hover:text-white"
                   }`}
                 >
                   <span className="text-xs">{index === 0 ? "●" : "○"}</span>
@@ -318,12 +318,12 @@ export function DashboardClient({
                 </button>
               ))}
             </nav>
-            <div className="mt-auto rounded-2xl bg-[#f8f9fb] p-3">
-              <p className="text-xs text-zinc-500">Sound</p>
+            <div className="mt-auto rounded-2xl bg-[#2a2a34] p-3">
+              <p className="text-xs text-zinc-400">Sound</p>
               <button
                 type="button"
                 className={`mt-2 w-full rounded-xl px-3 py-2 text-xs font-semibold ${
-                  soundArmed ? "bg-[#ff8f66] text-white" : "bg-white text-zinc-700"
+                  soundArmed ? "bg-[#7b61ff] text-white" : "bg-[#f2f3f6] text-zinc-800"
                 }`}
                 onClick={(event) => {
                   event.stopPropagation();
@@ -335,38 +335,38 @@ export function DashboardClient({
             </div>
           </aside>
 
-          <section className="rounded-[22px] border border-[#e8ebf0] bg-white p-4 sm:p-5">
+          <section className="rounded-[22px] border border-[#ececf1] bg-white p-4 sm:p-5">
             <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Hello, Baby Betters!</h1>
+                <h1 className="text-2xl font-semibold tracking-tight text-[#1e1f26] sm:text-3xl">Hello, Baby Betters!</h1>
                 <p className="text-sm text-zinc-500">Track the race progress as we get closer to due date.</p>
               </div>
-              <div className="rounded-full border border-[#eceff4] bg-[#f8fafc] px-3 py-1.5 text-xs font-medium text-zinc-600">
+              <div className="rounded-full border border-[#eceff4] bg-[#f8f8fb] px-3 py-1.5 text-xs font-medium text-zinc-600">
                 {formatDateTime(nowMs)}
               </div>
             </header>
 
-            <section className="mb-3 rounded-2xl border border-[#ffd9c9] bg-gradient-to-r from-[#fff3ec] via-[#fff8f4] to-[#fff3ec] p-3 sm:p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#be5931]">Key Dates</p>
+            <section className="mb-3 rounded-2xl border border-[#ececf1] bg-[linear-gradient(135deg,#f4f2ff_0%,#f2fbff_45%,#f3fff8_100%)] p-3 sm:p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6b5cf6]">Key Dates</p>
               <div className="mt-2 grid gap-2 sm:grid-cols-2">
-                <article className="rounded-xl border border-[#ffd8c6] bg-white px-3 py-2">
+                <article className="rounded-xl border border-[#e7e2ff] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Expected due date</p>
-                  <p className="text-base font-bold text-[#9f3f1d] sm:text-lg">April 16</p>
+                  <p className="text-base font-bold text-[#5b4bd2] sm:text-lg">April 16</p>
                 </article>
-                <article className="rounded-xl border border-[#ffcdb5] bg-white px-3 py-2">
+                <article className="rounded-xl border border-[#cdeeff] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Induction date</p>
-                  <p className="text-base font-bold text-[#c14e26] sm:text-lg">April 18</p>
+                  <p className="text-base font-bold text-[#168ccd] sm:text-lg">April 18</p>
                 </article>
               </div>
             </section>
 
             <section className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
-              <article className="rounded-2xl border border-[#ffd7c6] bg-gradient-to-r from-[#ff8f66] to-[#ff7d4f] px-4 py-4 text-white shadow-[0_14px_30px_rgba(201,94,46,0.35)] sm:px-5">
+              <article className="rounded-2xl border border-[#e3e3ea] bg-[linear-gradient(135deg,#f24e1e_0%,#a259ff_45%,#18a0fb_100%)] px-4 py-4 text-white shadow-[0_14px_30px_rgba(58,49,140,0.35)] sm:px-5">
                 <p className="text-xs uppercase tracking-[0.16em] text-white/80">Total pool</p>
                 <p className="mt-1 text-4xl font-extrabold tracking-tight sm:text-5xl">${potUsd}</p>
                 <p className="mt-1 text-xs text-white/80">${entryFeeUsd} per paid entrant</p>
               </article>
-              <article className="rounded-2xl border border-[#e7ebf2] bg-white px-4 py-4 shadow-[0_8px_18px_rgba(33,35,39,0.08)]">
+              <article className="rounded-2xl border border-[#e7ebf2] bg-[#f8f8fc] px-4 py-4 shadow-[0_8px_18px_rgba(33,35,39,0.08)]">
                 <p className="text-xs uppercase tracking-[0.12em] text-zinc-500">Entrants</p>
                 <p className="mt-1 text-3xl font-bold tracking-tight text-zinc-900">{totalEntrants}</p>
                 <p className="mt-2 text-xs text-zinc-500">
@@ -378,7 +378,7 @@ export function DashboardClient({
               </article>
             </section>
 
-            <section className="mt-3 rounded-2xl border border-[#e7ebf2] bg-gradient-to-b from-[#ffffff] to-[#f8fafe] p-3 shadow-[0_10px_24px_rgba(33,35,39,0.07)] sm:p-4">
+            <section className="mt-3 rounded-2xl border border-[#e7ebf2] bg-gradient-to-b from-[#ffffff] to-[#f8f8fd] p-3 shadow-[0_10px_24px_rgba(33,35,39,0.07)] sm:p-4">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h2 className="text-lg font-semibold tracking-tight sm:text-xl">Face-off race track</h2>
@@ -388,9 +388,9 @@ export function DashboardClient({
                   {countdownLabel(dueDateMs, nowMs)}
                 </span>
               </div>
-              <div className="mb-4 h-2.5 rounded-full bg-[#edf0f6]">
+              <div className="mb-4 h-2.5 rounded-full bg-[#eceef4]">
                 <div
-                  className="h-2.5 rounded-full bg-gradient-to-r from-[#ffb08e] to-[#ff7d4f]"
+                  className="h-2.5 rounded-full bg-gradient-to-r from-[#f24e1e] via-[#a259ff] to-[#18a0fb]"
                   style={{ width: `${scheduleProgress}%` }}
                 />
               </div>
@@ -410,7 +410,7 @@ export function DashboardClient({
                       </div>
                       <span
                         className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-                          lane.isEliminated ? "bg-zinc-200 text-zinc-600" : "bg-[#fff0e8] text-[#ba5831]"
+                          lane.isEliminated ? "bg-zinc-200 text-zinc-600" : "bg-[#efeaff] text-[#6b5cf6]"
                         }`}
                       >
                         {lane.isEliminated ? "Out" : "In"}
@@ -418,7 +418,7 @@ export function DashboardClient({
                     </div>
 
                     <div className="relative h-10 rounded-full bg-[repeating-linear-gradient(90deg,#f5f6f9_0px,#f5f6f9_24px,#ffffff_24px,#ffffff_48px)] sm:h-11">
-                      <div className="absolute right-2 top-0 h-full w-1 rounded-full bg-[#ff8d62]" />
+                      <div className="absolute right-2 top-0 h-full w-1 rounded-full bg-[#7b61ff]" />
                       <div
                         className="absolute top-1/2 transition-all duration-1000 ease-out"
                         style={{ left: `${lane.progress}%`, transform: "translate(-50%, -50%)" }}
@@ -446,7 +446,7 @@ export function DashboardClient({
                 <article key={label} className="rounded-xl border border-[#edf0f4] bg-[#fbfbfc] p-2.5 sm:p-3">
                   <p className="text-[11px] font-medium text-zinc-500">{label}</p>
                   <p className="mt-1 text-xl font-semibold tracking-tight sm:text-2xl">{value}</p>
-                  <p className="mt-1 text-[10px] text-[#d7683f]">{meta}</p>
+                  <p className="mt-1 text-[10px] text-[#6b5cf6]">{meta}</p>
                 </article>
               ))}
             </section>
@@ -475,9 +475,9 @@ export function DashboardClient({
                         <span>{item.displayDate}</span>
                         <span className="font-semibold">{item.percent.toFixed(0)}%</span>
                       </div>
-                      <div className="h-2 rounded-full bg-[#f2f4f8]">
+                      <div className="h-2 rounded-full bg-[#edf0f6]">
                         <div
-                          className="h-2 rounded-full bg-gradient-to-r from-[#ffb08e] to-[#ff7d4f]"
+                          className="h-2 rounded-full bg-gradient-to-r from-[#f24e1e] via-[#a259ff] to-[#18a0fb]"
                           style={{ width: `${item.percent}%` }}
                         />
                       </div>
@@ -488,7 +488,7 @@ export function DashboardClient({
             </section>
           </section>
 
-          <aside className="rounded-[22px] border border-[#e8ebf0] bg-white p-4 sm:p-5">
+          <aside className="rounded-[22px] border border-[#e8ebf0] bg-[#fdfdff] p-4 sm:p-5">
             <article className="rounded-2xl border border-[#edf0f4] bg-[#fbfcff] p-4 text-center">
               <FaceImage name="The Mother (Katherine)" eliminated={false} sizeClass="mx-auto h-16 w-16 sm:h-20 sm:w-20" />
               <p className="mt-2 text-base font-semibold">Mama HQ</p>
@@ -520,12 +520,12 @@ export function DashboardClient({
               </div>
             </article>
 
-            <article className="mt-4 rounded-2xl border border-[#edf0f4] bg-[#fff4ee] p-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-[#ba5831]">Audio + FX</p>
+            <article className="mt-4 rounded-2xl border border-[#e7e2ff] bg-[#f4f2ff] p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-[#6b5cf6]">Audio + FX</p>
               <button
                 type="button"
                 className={`mt-2 w-full rounded-xl px-3 py-2 text-sm font-semibold ${
-                  soundArmed ? "bg-[#ff8f66] text-white" : "bg-white text-zinc-700"
+                  soundArmed ? "bg-[#7b61ff] text-white" : "bg-white text-zinc-700"
                 }`}
                 onClick={(event) => {
                   event.stopPropagation();
