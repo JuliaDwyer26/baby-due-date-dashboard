@@ -346,25 +346,25 @@ export function DashboardClient({
               </div>
             </header>
 
-            <section className="mb-3 rounded-2xl border border-[#ececf1] bg-[linear-gradient(135deg,#f4f2ff_0%,#f2fbff_45%,#f3fff8_100%)] p-3 sm:p-4">
+            <section className="mb-3 rounded-2xl border border-[#ececf1] bg-white p-3 sm:p-4">
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6b5cf6]">Key Dates</p>
               <div className="mt-2 grid gap-2 sm:grid-cols-2">
                 <article className="rounded-xl border border-[#e7e2ff] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Expected due date</p>
-                  <p className="text-base font-bold text-[#5b4bd2] sm:text-lg">April 16</p>
+                  <p className="text-base font-bold text-[#1e1f26] sm:text-lg">April 16</p>
                 </article>
                 <article className="rounded-xl border border-[#cdeeff] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Induction date</p>
-                  <p className="text-base font-bold text-[#168ccd] sm:text-lg">April 18</p>
+                  <p className="text-base font-bold text-zinc-900 sm:text-lg">April 18</p>
                 </article>
               </div>
             </section>
 
             <section className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
-              <article className="rounded-2xl bg-[linear-gradient(135deg,#f24e1e_0%,#a259ff_45%,#18a0fb_100%)] p-[2px] shadow-[0_14px_30px_rgba(58,49,140,0.2)]">
+              <article className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#f24e1e_0%,#a259ff_45%,#18a0fb_100%)] p-[2px]">
                 <div className="rounded-[14px] bg-white px-4 py-4 text-zinc-900 sm:px-5">
                   <p className="text-xs uppercase tracking-[0.16em] text-zinc-500">Total pool</p>
-                  <p className="mt-1 text-4xl font-extrabold tracking-tight sm:text-5xl">${potUsd}</p>
+                  <p className="mt-1 text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl">${potUsd}</p>
                   <p className="mt-1 text-xs text-zinc-500">${entryFeeUsd} per paid entrant</p>
                 </div>
               </article>
@@ -405,7 +405,7 @@ export function DashboardClient({
                   >
                     <div className="mb-2 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-9 w-9 sm:h-10 sm:w-10" />
+                        <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-12 w-12 sm:h-14 sm:w-14" />
                         <p className={`text-sm font-semibold ${lane.isEliminated ? "text-zinc-500" : ""}`}>
                           {lane.name}
                         </p>
@@ -419,7 +419,7 @@ export function DashboardClient({
                       </span>
                     </div>
 
-                    <div className="relative h-10 rounded-full bg-[repeating-linear-gradient(90deg,#f5f6f9_0px,#f5f6f9_24px,#ffffff_24px,#ffffff_48px)] sm:h-11">
+                    <div className="relative h-5 rounded-full bg-[repeating-linear-gradient(90deg,#f5f6f9_0px,#f5f6f9_24px,#ffffff_24px,#ffffff_48px)] sm:h-[22px]">
                       <div className="absolute right-2 top-0 h-full w-1 rounded-full bg-[#7b61ff]" />
                       <div
                         className="absolute top-1/2 transition-all duration-1000 ease-out"
@@ -428,7 +428,7 @@ export function DashboardClient({
                         <FaceImage
                           name={lane.name}
                           eliminated={lane.isEliminated}
-                          sizeClass="h-10 w-10 sm:h-11 sm:w-11"
+                          sizeClass="h-14 w-14 sm:h-16 sm:w-16"
                           decorative
                         />
                       </div>
