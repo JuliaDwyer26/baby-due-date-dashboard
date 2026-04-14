@@ -339,7 +339,7 @@ export function DashboardClient({
             <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight text-[#1e1f26] sm:text-3xl">Hello, ya filthy gamblers!</h1>
-                <p className="text-sm text-zinc-500">Track the race progress as we get closer to due date.</p>
+                <p className="text-sm text-zinc-900">Track the race progress as we get closer to due date.</p>
               </div>
               <div className="rounded-full border border-[#eceff4] bg-[#f8f8fb] px-3 py-1.5 text-xs font-medium text-zinc-600">
                 {formatDateTime(nowMs)}
