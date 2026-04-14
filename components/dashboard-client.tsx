@@ -361,10 +361,12 @@ export function DashboardClient({
             </section>
 
             <section className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
-              <article className="rounded-2xl border border-[#e3e3ea] bg-[linear-gradient(135deg,#f24e1e_0%,#a259ff_45%,#18a0fb_100%)] px-4 py-4 text-white shadow-[0_14px_30px_rgba(58,49,140,0.35)] sm:px-5">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/80">Total pool</p>
-                <p className="mt-1 text-4xl font-extrabold tracking-tight sm:text-5xl">${potUsd}</p>
-                <p className="mt-1 text-xs text-white/80">${entryFeeUsd} per paid entrant</p>
+              <article className="rounded-2xl bg-[linear-gradient(135deg,#f24e1e_0%,#a259ff_45%,#18a0fb_100%)] p-[2px] shadow-[0_14px_30px_rgba(58,49,140,0.2)]">
+                <div className="rounded-[14px] bg-white px-4 py-4 text-zinc-900 sm:px-5">
+                  <p className="text-xs uppercase tracking-[0.16em] text-zinc-500">Total pool</p>
+                  <p className="mt-1 text-4xl font-extrabold tracking-tight sm:text-5xl">${potUsd}</p>
+                  <p className="mt-1 text-xs text-zinc-500">${entryFeeUsd} per paid entrant</p>
+                </div>
               </article>
               <article className="rounded-2xl border border-[#e7ebf2] bg-[#f8f8fc] px-4 py-4 shadow-[0_8px_18px_rgba(33,35,39,0.08)]">
                 <p className="text-xs uppercase tracking-[0.12em] text-zinc-500">Entrants</p>
