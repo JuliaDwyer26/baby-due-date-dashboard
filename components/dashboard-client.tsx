@@ -346,7 +346,25 @@ export function DashboardClient({
               </div>
             </header>
 
-            <section className="mt-2 rounded-2xl border border-[#e7ebf2] bg-gradient-to-b from-[#ffffff] to-[#f8fafe] p-3 shadow-[0_10px_24px_rgba(33,35,39,0.07)] sm:p-4">
+            <section className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
+              <article className="rounded-2xl border border-[#ffd7c6] bg-gradient-to-r from-[#ff8f66] to-[#ff7d4f] px-4 py-4 text-white shadow-[0_14px_30px_rgba(201,94,46,0.35)] sm:px-5">
+                <p className="text-xs uppercase tracking-[0.16em] text-white/80">Total pool</p>
+                <p className="mt-1 text-4xl font-extrabold tracking-tight sm:text-5xl">${potUsd}</p>
+                <p className="mt-1 text-xs text-white/80">${entryFeeUsd} per paid entrant</p>
+              </article>
+              <article className="rounded-2xl border border-[#e7ebf2] bg-white px-4 py-4 shadow-[0_8px_18px_rgba(33,35,39,0.08)]">
+                <p className="text-xs uppercase tracking-[0.12em] text-zinc-500">Entrants</p>
+                <p className="mt-1 text-3xl font-bold tracking-tight text-zinc-900">{totalEntrants}</p>
+                <p className="mt-2 text-xs text-zinc-500">
+                  Active: <span className="font-semibold text-zinc-700">{activeCount}</span>
+                </p>
+                <p className="text-xs text-zinc-500">
+                  Paid: <span className="font-semibold text-zinc-700">{paidCount}</span>
+                </p>
+              </article>
+            </section>
+
+            <section className="mt-3 rounded-2xl border border-[#e7ebf2] bg-gradient-to-b from-[#ffffff] to-[#f8fafe] p-3 shadow-[0_10px_24px_rgba(33,35,39,0.07)] sm:p-4">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h2 className="text-lg font-semibold tracking-tight sm:text-xl">Face-off race track</h2>
@@ -363,7 +381,7 @@ export function DashboardClient({
                 />
               </div>
 
-              <div className="max-h-[420px] space-y-2 overflow-auto pr-1 sm:max-h-[520px]">
+              <div className="space-y-2 pr-1">
                 {raceLanes.map((lane) => (
                   <div
                     key={lane.id}
@@ -404,7 +422,7 @@ export function DashboardClient({
               </div>
             </section>
 
-            <section className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <section className="mt-3 grid grid-cols-2 gap-2 opacity-85 sm:grid-cols-4">
               {[
                 ["Entrants", String(totalEntrants), "+2 today"],
                 ["Active", String(activeCount), "- as time passes"],
@@ -419,7 +437,7 @@ export function DashboardClient({
               ))}
             </section>
 
-            <section className="mt-4 grid gap-3 xl:grid-cols-2">
+            <section className="mt-4 grid gap-3 opacity-85 xl:grid-cols-2">
               <article className="rounded-2xl border border-[#edf0f4] bg-[#fbfcff] p-3">
                 <h3 className="text-sm font-semibold sm:text-base">Leaderboard</h3>
                 <ol className="mt-2 space-y-2">
