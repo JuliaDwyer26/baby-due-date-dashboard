@@ -33,27 +33,63 @@ body {
   align-items: center;
   justify-content: center;
   background: radial-gradient(circle at center, rgba(43, 92, 63, 0.2), rgba(10, 20, 14, 0.85));
-  animation: introFadeOut 15s ease forwards;
+  opacity: 1;
+  transition: opacity 0.7s ease;
   pointer-events: none;
+}
+
+.intro-overlay--closing {
+  opacity: 0;
 }
 
 .intro-baby {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform-origin: center;
-  animation: introPop 15s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  transform-origin: center center;
 }
 
 .intro-baby-face {
   width: min(82vw, 420px);
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  clip-path: path(
-    "M210 10 C305 10 390 85 390 190 C390 290 305 380 210 400 C110 380 30 290 30 190 C30 85 115 10 210 10 Z"
+  /* Irregular sticker-like die-cut silhouette (not circular). */
+  clip-path: polygon(
+    50% 2%,
+    62% 4%,
+    73% 9%,
+    82% 16%,
+    90% 27%,
+    95% 39%,
+    97% 52%,
+    95% 64%,
+    91% 75%,
+    84% 84%,
+    74% 91%,
+    63% 96%,
+    50% 98%,
+    37% 96%,
+    27% 91%,
+    16% 84%,
+    9% 75%,
+    5% 64%,
+    3% 52%,
+    5% 39%,
+    10% 27%,
+    18% 16%,
+    27% 9%,
+    38% 4%
   );
-  border: 7px solid rgba(255, 255, 255, 0.92);
+  border: 8px solid rgba(255, 255, 255, 0.96);
   box-shadow: 0 28px 50px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: scale(0.2);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.45s ease;
+}
+
+.intro-baby-face--loaded {
+  opacity: 1;
+  transform: scale(1);
 }
 
 @media (max-width: 640px) {
@@ -63,33 +99,3 @@ body {
   }
 }
 
-@keyframes introPop {
-  0% {
-    opacity: 0;
-    transform: scale(0.15);
-  }
-  14% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  78% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.15);
-  }
-}
-
-@keyframes introFadeOut {
-  0% {
-    opacity: 1;
-  }
-  82% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}

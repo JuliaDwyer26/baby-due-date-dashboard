@@ -98,6 +98,8 @@ export function DashboardClient({
 }: DashboardClientProps) {
   const [nowMs, setNowMs] = useState(() => Date.now());
   const [introVisible, setIntroVisible] = useState(true);
+  const [introClosing, setIntroClosing] = useState(false);
+  const [introLoaded, setIntroLoaded] = useState(false);
   const [soundArmed, setSoundArmed] = useState(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const shownConfettiRef = useRef(false);
@@ -199,9 +201,29 @@ export function DashboardClient({
   }, []);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setIntroVisible(false), 15000);
-    return () => window.clearTimeout(timer);
-  }, []);
+    if (!introLoaded || !introVisible) {
+      return;
+    }
+
+    const holdTimer = window.setTimeout(() => setIntroClosing(true), 2000);
+    const closeTimer = window.setTimeout(() => setIntroVisible(false), 2700);
+
+    return () => {
+      window.clearTimeout(holdTimer);
+      window.clearTimeout(closeTimer);
+    };
+  }, [introLoaded, introVisible]);
+
+  useEffect(() => {
+    // Safety fallback in case image load event never fires.
+    if (!introVisible) {
+      return;
+    }
+    const fallbackTimer = window.setTimeout(() => {
+      setIntroLoaded(true);
+    }, 5000);
+    return () => window.clearTimeout(fallbackTimer);
+  }, [introVisible]);
 
   useEffect(() => {
     if (shownConfettiRef.current || nowMs < dueDateMs) {
@@ -232,16 +254,18 @@ export function DashboardClient({
       onClick={armAudio}
     >
       {introVisible ? (
-        <div className="intro-overlay">
+        <div className={`intro-overlay ${introClosing ? "intro-overlay--closing" : ""}`}>
           <div className="intro-baby">
             <Image
               src="/faces/baby-intro.png"
               alt="Baby face intro"
-              className="intro-baby-face"
+              className={`intro-baby-face ${introLoaded ? "intro-baby-face--loaded" : ""}`}
               width={700}
               height={700}
+              onLoad={() => setIntroLoaded(true)}
               onError={(event) => {
                 event.currentTarget.src = "/faces/placeholder-face.svg";
+                setIntroLoaded(true);
               }}
               unoptimized
             />
