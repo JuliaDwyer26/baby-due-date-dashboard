@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Nunito_Sans } from "next/font/google";
+import { Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 
-const nunitoSans = Nunito_Sans({
-  variable: "--font-nunito-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nunitoSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

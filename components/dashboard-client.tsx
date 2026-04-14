@@ -118,7 +118,6 @@ export function DashboardClient({
 
   const paidCount = useMemo(() => bets.filter((bet) => bet.paymentSent).length, [bets]);
   const totalEntrants = bets.length;
-  const unpaidCount = totalEntrants - paidCount;
   const potUsd = paidCount * entryFeeUsd;
   const comparisonMs = actualBirthMs ?? dueDateMs;
   const isActualResult = actualBirthMs !== null;
@@ -176,6 +175,15 @@ export function DashboardClient({
       })
       .sort((a, b) => b.progress - a.progress);
   }, [bets, eliminated, isActualResult, leaderboard, nowMs]);
+
+  const scheduleProgress = useMemo(() => {
+    const earliest = Math.min(...bets.map((bet) => bet.guessMs));
+    const span = Math.max(dueDateMs - earliest, 1);
+    const progress = ((nowMs - earliest) / span) * 100;
+    return clamp(progress, 0, 100);
+  }, [bets, dueDateMs, nowMs]);
+
+  const activeCount = totalEntrants - eliminated.size;
 
   const armAudio = () => {
     if (audioCtxRef.current) {
@@ -261,7 +269,7 @@ export function DashboardClient({
 
   return (
     <div
-      className="min-h-screen bg-[radial-gradient(circle_at_top,_#fff7f2_0%,_#fffdfb_48%,_#ffffff_100%)] px-3 py-4 pb-12 text-zinc-900 sm:px-8 sm:py-6"
+      className="min-h-screen bg-[radial-gradient(circle_at_top,_#f9f9fb_0%,_#f2f3f7_45%,_#eceff4_100%)] px-2 py-3 text-zinc-900 sm:px-8 sm:py-8"
       onClick={armAudio}
     >
       {introVisible ? (
@@ -287,200 +295,211 @@ export function DashboardClient({
         </div>
       ) : null}
 
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-4 sm:gap-6">
-        <header className="rounded-[22px] border border-[#f8ddd0] bg-white/95 p-4 shadow-[0_14px_34px_rgba(188,102,61,0.12)] sm:rounded-[28px] sm:p-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d7683f]">
-                Baby Pool
-              </p>
-              <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:mt-2 sm:text-4xl">
-                Picnic Derby Dashboard
-              </h1>
-              <p className="mt-1 text-xs text-zinc-600 sm:mt-2 sm:text-sm">
-                Due date: {formatDateTime(dueDateMs)}
-              </p>
+      <main className="mx-auto w-full max-w-[1320px] rounded-[28px] border border-white/60 bg-[#f5f6f8]/95 p-2 shadow-[0_30px_70px_rgba(26,33,52,0.18)] sm:p-3">
+        <div className="grid min-h-[760px] gap-2 lg:grid-cols-[220px_minmax(0,1fr)_300px]">
+          <aside className="hidden rounded-[22px] border border-[#e8ebf0] bg-white px-4 py-5 lg:flex lg:flex-col">
+            <div className="mb-8">
+              <p className="text-xl font-semibold tracking-tight text-[#212327]">picnic pool</p>
+              <p className="text-xs text-zinc-500">race dashboard</p>
             </div>
-            <button
-              type="button"
-              className={`w-full rounded-full px-5 py-2.5 text-sm font-semibold transition sm:w-auto ${
-                soundArmed
-                  ? "bg-[#ff8f66] text-white"
-                  : "bg-[#fff0e8] text-[#b94f29] hover:bg-[#ffe2d4]"
-              }`}
-              onClick={(event) => {
-                event.stopPropagation();
-                armAudio();
-              }}
-            >
-              {soundArmed ? "Dramatic sound: ON" : "Tap to enable dramatic sound"}
-            </button>
-          </div>
-        </header>
-
-        <section className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
-          {[
-            ["Entrants", String(totalEntrants)],
-            ["Paid", String(paidCount)],
-            ["Unpaid", String(unpaidCount)],
-            ["Pool", `$${potUsd}`],
-          ].map(([label, value]) => (
-            <article
-              key={label}
-              className="rounded-[18px] border border-[#f8e3d7] bg-white/95 p-3 shadow-[0_10px_22px_rgba(208,114,73,0.08)] sm:rounded-[22px] sm:p-5"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">{label}</p>
-              <p className="mt-1 text-2xl font-semibold tracking-tight sm:mt-2 sm:text-3xl">{value}</p>
-            </article>
-          ))}
-        </section>
-
-        <section className="grid gap-4 lg:grid-cols-2">
-          <article className="rounded-[20px] border border-[#f7dfd3] bg-white p-4 shadow-[0_10px_24px_rgba(201,108,67,0.09)] sm:rounded-[24px] sm:p-5">
-            <h2 className="text-lg font-semibold sm:text-xl">Countdown and race status</h2>
-            <div className="mt-3 space-y-2 text-sm text-zinc-700 sm:mt-4">
-              <p>
-                <span className="font-semibold text-zinc-500">Status:</span>{" "}
-                {isActualResult ? "Official results unlocked" : "Live derby in progress"}
-              </p>
-              <p>
-                <span className="font-semibold text-zinc-500">
-                  {isActualResult ? "Birth time:" : "Countdown:"}
-                </span>{" "}
-                {isActualResult && actualBirthMs
-                  ? formatDateTime(actualBirthMs)
-                  : countdownLabel(dueDateMs, nowMs)}
-              </p>
-              <p>
-                <span className="font-semibold text-zinc-500">
-                  {isActualResult ? "Winner:" : "Current favorite:"}
-                </span>{" "}
-                {winner ? `${winner.name} (${formatDuration(winner.deltaMs)} away)` : "TBD"}
-              </p>
-            </div>
-          </article>
-
-          <article className="rounded-[20px] border border-[#f7dfd3] bg-white p-4 shadow-[0_10px_24px_rgba(201,108,67,0.09)] sm:rounded-[24px] sm:p-5">
-            <h2 className="text-lg font-semibold sm:text-xl">Odds by guessed date</h2>
-            <ul className="mt-3 space-y-3 sm:mt-4">
-              {oddsByDate.map((item) => (
-                <li key={item.dateKey}>
-                  <div className="mb-1 flex justify-between text-sm">
-                    <span>{item.displayDate}</span>
-                    <span className="font-medium">
-                      {item.count} ({item.percent.toFixed(0)}%)
-                    </span>
-                  </div>
-                  <div className="h-2.5 rounded-full bg-[#ffe9de]">
-                    <div
-                      className="h-2.5 rounded-full bg-gradient-to-r from-[#ffa886] to-[#ff7d4f]"
-                      style={{ width: `${item.percent}%` }}
-                    />
-                  </div>
-                </li>
+            <nav className="space-y-2 text-sm">
+              {["Overview", "Race Track", "Leaderboard", "Timeline", "Settings"].map((item, index) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left transition ${
+                    index === 0
+                      ? "bg-[#fff0e8] font-semibold text-[#ba5831]"
+                      : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800"
+                  }`}
+                >
+                  <span className="text-xs">{index === 0 ? "●" : "○"}</span>
+                  {item}
+                </button>
               ))}
-            </ul>
-          </article>
-        </section>
-
-        <section className="rounded-[22px] border border-[#f7dfd3] bg-white p-4 shadow-[0_12px_30px_rgba(195,103,64,0.11)] sm:rounded-[26px] sm:p-5">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold sm:text-xl">Face-off race track</h2>
-            <p className="text-[10px] uppercase tracking-[0.14em] text-zinc-500 sm:text-xs">
-              Live knockout mode
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {raceLanes.map((lane) => (
-              <div
-                key={lane.id}
-                className="relative overflow-hidden rounded-xl border border-[#fde8dd] bg-[#fffdfc] p-2.5 sm:rounded-2xl sm:p-3"
+            </nav>
+            <div className="mt-auto rounded-2xl bg-[#f8f9fb] p-3">
+              <p className="text-xs text-zinc-500">Sound</p>
+              <button
+                type="button"
+                className={`mt-2 w-full rounded-xl px-3 py-2 text-xs font-semibold ${
+                  soundArmed ? "bg-[#ff8f66] text-white" : "bg-white text-zinc-700"
+                }`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  armAudio();
+                }}
               >
-                <div className="mb-2 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <FaceImage name={lane.name} eliminated={lane.isEliminated} />
-                    <div>
-                      <p className={`text-sm font-semibold sm:text-base ${lane.isEliminated ? "text-zinc-500" : ""}`}>
-                        {lane.name}
-                      </p>
-                      <p className="text-xs text-zinc-500">
-                        {lane.dateGuess} at {lane.timeGuess}
-                      </p>
+                {soundArmed ? "Dramatic ON" : "Enable FX"}
+              </button>
+            </div>
+          </aside>
+
+          <section className="rounded-[22px] border border-[#e8ebf0] bg-white p-4 sm:p-5">
+            <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Hello, Margaret</h1>
+                <p className="text-sm text-zinc-500">Track the race progress as we get closer to due date.</p>
+              </div>
+              <div className="rounded-full border border-[#eceff4] bg-[#f8fafc] px-3 py-1.5 text-xs font-medium text-zinc-600">
+                {formatDateTime(nowMs)}
+              </div>
+            </header>
+
+            <section className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {[
+                ["Entrants", String(totalEntrants), "+2 today"],
+                ["Active", String(activeCount), "- as time passes"],
+                ["Paid", String(paidCount), `${Math.round((paidCount / totalEntrants) * 100)}% secured`],
+                ["Pool", `$${potUsd}`, "$10 each paid"],
+              ].map(([label, value, meta]) => (
+                <article key={label} className="rounded-2xl border border-[#edf0f4] bg-[#fbfbfc] p-3">
+                  <p className="text-xs font-medium text-zinc-500">{label}</p>
+                  <p className="mt-1 text-2xl font-semibold tracking-tight">{value}</p>
+                  <p className="mt-1 text-[11px] text-[#d7683f]">{meta}</p>
+                </article>
+              ))}
+            </section>
+
+            <section className="mt-4 rounded-2xl border border-[#eceff4] bg-[#fbfcff] p-3 sm:p-4">
+              <div className="mb-2 flex items-center justify-between">
+                <h2 className="text-base font-semibold sm:text-lg">Face-off race track</h2>
+                <span className="text-xs text-zinc-500">{countdownLabel(dueDateMs, nowMs)}</span>
+              </div>
+              <div className="mb-4 h-2 rounded-full bg-[#f1f3f7]">
+                <div
+                  className="h-2 rounded-full bg-gradient-to-r from-[#ffb08e] to-[#ff7d4f]"
+                  style={{ width: `${scheduleProgress}%` }}
+                />
+              </div>
+
+              <div className="max-h-[300px] space-y-2 overflow-auto pr-1 sm:max-h-[370px]">
+                {raceLanes.map((lane) => (
+                  <div
+                    key={lane.id}
+                    className="relative rounded-xl border border-[#edf0f4] bg-white p-2.5 shadow-[0_4px_12px_rgba(33,35,39,0.05)]"
+                  >
+                    <div className="mb-2 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-8 w-8" />
+                        <p className={`text-xs font-semibold sm:text-sm ${lane.isEliminated ? "text-zinc-500" : ""}`}>
+                          {lane.name}
+                        </p>
+                      </div>
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                          lane.isEliminated ? "bg-zinc-200 text-zinc-600" : "bg-[#fff0e8] text-[#ba5831]"
+                        }`}
+                      >
+                        {lane.isEliminated ? "Out" : "In"}
+                      </span>
+                    </div>
+
+                    <div className="relative h-9 rounded-full bg-[repeating-linear-gradient(90deg,#f5f6f9_0px,#f5f6f9_24px,#ffffff_24px,#ffffff_48px)]">
+                      <div className="absolute right-2 top-0 h-full w-1 rounded-full bg-[#ff8d62]" />
+                      <div
+                        className="absolute top-1/2 transition-all duration-1000 ease-out"
+                        style={{ left: `${lane.progress}%`, transform: "translate(-50%, -50%)" }}
+                      >
+                        <FaceImage
+                          name={lane.name}
+                          eliminated={lane.isEliminated}
+                          sizeClass="h-9 w-9 sm:h-10 sm:w-10"
+                          decorative
+                        />
+                      </div>
                     </div>
                   </div>
-                  <p
-                    className={`hidden rounded-full px-3 py-1 text-xs font-semibold sm:inline-flex ${
-                      lane.isEliminated ? "bg-zinc-200 text-zinc-600" : "bg-[#ffe8dc] text-[#be5931]"
-                    }`}
-                  >
-                    {lane.isEliminated ? "Eliminated" : "Still in race"}
-                  </p>
-                </div>
+                ))}
+              </div>
+            </section>
 
-                <div className="relative h-9 rounded-full bg-[repeating-linear-gradient(90deg,#fff0e7_0px,#fff0e7_28px,#fff8f4_28px,#fff8f4_56px)] sm:h-10">
-                  <div className="absolute right-2 top-0 h-full w-1 rounded-full bg-[#ff8d62]" />
-                  <div
-                    className="absolute top-1/2 flex -translate-y-1/2 items-center gap-1 transition-all duration-1000 ease-out"
-                    style={{ left: `${lane.progress}%`, transform: "translate(-50%, -50%)" }}
-                  >
-                    <FaceImage
-                      name={lane.name}
-                      eliminated={lane.isEliminated}
-                      sizeClass="h-9 w-9 sm:h-10 sm:w-10"
-                      decorative
-                    />
-                  </div>
+            <section className="mt-4 grid gap-3 xl:grid-cols-2">
+              <article className="rounded-2xl border border-[#edf0f4] bg-[#fbfcff] p-3">
+                <h3 className="text-sm font-semibold sm:text-base">Leaderboard</h3>
+                <ol className="mt-2 space-y-2">
+                  {leaderboard.slice(0, 8).map((entry, index) => (
+                    <li key={entry.id} className="flex items-center justify-between rounded-xl bg-white p-2 text-sm">
+                      <p className="font-medium">
+                        #{index + 1} {entry.name}
+                      </p>
+                      <p className="text-xs font-semibold text-zinc-600">{formatDuration(entry.deltaMs)}</p>
+                    </li>
+                  ))}
+                </ol>
+              </article>
+
+              <article className="rounded-2xl border border-[#edf0f4] bg-[#fbfcff] p-3">
+                <h3 className="text-sm font-semibold sm:text-base">Date Odds</h3>
+                <ul className="mt-2 space-y-2">
+                  {oddsByDate.map((item) => (
+                    <li key={item.dateKey} className="rounded-xl bg-white p-2">
+                      <div className="mb-1 flex justify-between text-xs">
+                        <span>{item.displayDate}</span>
+                        <span className="font-semibold">{item.percent.toFixed(0)}%</span>
+                      </div>
+                      <div className="h-2 rounded-full bg-[#f2f4f8]">
+                        <div
+                          className="h-2 rounded-full bg-gradient-to-r from-[#ffb08e] to-[#ff7d4f]"
+                          style={{ width: `${item.percent}%` }}
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </section>
+          </section>
+
+          <aside className="rounded-[22px] border border-[#e8ebf0] bg-white p-4 sm:p-5">
+            <article className="rounded-2xl border border-[#edf0f4] bg-[#fbfcff] p-4 text-center">
+              <FaceImage name="The Mother (Katherine)" eliminated={false} sizeClass="mx-auto h-16 w-16 sm:h-20 sm:w-20" />
+              <p className="mt-2 text-base font-semibold">Mama HQ</p>
+              <p className="text-xs text-zinc-500">{isActualResult ? "Baby arrived" : "Waiting for arrival"}</p>
+              <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                <div className="rounded-lg bg-white p-2">
+                  <p className="text-zinc-500">Favorite</p>
+                  <p className="font-semibold">{winner?.name ?? "TBD"}</p>
+                </div>
+                <div className="rounded-lg bg-white p-2">
+                  <p className="text-zinc-500">Pool</p>
+                  <p className="font-semibold">${potUsd}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </article>
 
-        <section className="grid gap-4 lg:grid-cols-2">
-          <article className="rounded-[20px] border border-[#f7dfd3] bg-white p-4 shadow-[0_10px_24px_rgba(201,108,67,0.09)] sm:rounded-[24px] sm:p-5">
-            <h2 className="text-lg font-semibold sm:text-xl">Leaderboard</h2>
-            <ol className="mt-3 space-y-2 sm:mt-4">
-              {leaderboard.map((entry, index) => (
-                <li
-                  key={entry.id}
-                  className="flex items-center justify-between rounded-xl border border-[#fdeee7] p-3"
-                >
-                  <p className="text-sm font-medium sm:text-base">
-                    #{index + 1} {entry.name}
-                  </p>
-                  <p className="text-sm font-semibold text-zinc-700">{formatDuration(entry.deltaMs)}</p>
-                </li>
-              ))}
-            </ol>
-          </article>
-
-          <article className="rounded-[20px] border border-[#f7dfd3] bg-white p-4 shadow-[0_10px_24px_rgba(201,108,67,0.09)] sm:rounded-[24px] sm:p-5">
-            <h2 className="text-lg font-semibold sm:text-xl">Timeline</h2>
-            <ol className="mt-3 space-y-2 sm:mt-4">
-              {[...bets]
-                .sort((a, b) => a.guessMs - b.guessMs)
-                .map((bet) => (
-                  <li
-                    key={bet.id}
-                    className="flex items-center justify-between rounded-xl border border-[#fdeee7] p-3"
-                  >
-                    <div>
-                      <p className="text-sm font-medium sm:text-base">{bet.name}</p>
-                      <p className="text-xs text-zinc-500">{formatDateTime(bet.guessMs)}</p>
+            <article className="mt-4 rounded-2xl border border-[#edf0f4] bg-[#fbfcff] p-3">
+              <h3 className="text-sm font-semibold">Activity</h3>
+              <div className="mt-2 space-y-2">
+                {leaderboard.slice(0, 6).map((entry) => (
+                  <div key={entry.id} className="flex items-center gap-2 rounded-xl bg-white p-2">
+                    <FaceImage name={entry.name} eliminated={eliminated.has(entry.id)} sizeClass="h-7 w-7" decorative />
+                    <div className="min-w-0">
+                      <p className="truncate text-xs font-medium">{entry.name}</p>
+                      <p className="text-[11px] text-zinc-500">{formatDuration(entry.deltaMs)} from target</p>
                     </div>
-                    <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                        bet.paymentSent ? "bg-[#ffe8dc] text-[#be5931]" : "bg-zinc-200 text-zinc-700"
-                      }`}
-                    >
-                      {bet.paymentSent ? "Paid" : "Unpaid"}
-                    </span>
-                  </li>
+                  </div>
                 ))}
-            </ol>
-          </article>
-        </section>
+              </div>
+            </article>
+
+            <article className="mt-4 rounded-2xl border border-[#edf0f4] bg-[#fff4ee] p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-[#ba5831]">Audio + FX</p>
+              <button
+                type="button"
+                className={`mt-2 w-full rounded-xl px-3 py-2 text-sm font-semibold ${
+                  soundArmed ? "bg-[#ff8f66] text-white" : "bg-white text-zinc-700"
+                }`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  armAudio();
+                }}
+              >
+                {soundArmed ? "Dramatic sound enabled" : "Enable dramatic sound"}
+              </button>
+            </article>
+          </aside>
+        </div>
       </main>
     </div>
   );
