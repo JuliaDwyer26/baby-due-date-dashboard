@@ -346,6 +346,20 @@ export function DashboardClient({
               </div>
             </header>
 
+            <section className="mb-3 rounded-2xl border border-[#ffd9c9] bg-gradient-to-r from-[#fff3ec] via-[#fff8f4] to-[#fff3ec] p-3 sm:p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#be5931]">Key Dates</p>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                <article className="rounded-xl border border-[#ffd8c6] bg-white px-3 py-2">
+                  <p className="text-xs text-zinc-500">Expected due date</p>
+                  <p className="text-base font-bold text-[#9f3f1d] sm:text-lg">April 16</p>
+                </article>
+                <article className="rounded-xl border border-[#ffcdb5] bg-white px-3 py-2">
+                  <p className="text-xs text-zinc-500">Induction date</p>
+                  <p className="text-base font-bold text-[#c14e26] sm:text-lg">April 18</p>
+                </article>
+              </div>
+            </section>
+
             <section className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
               <article className="rounded-2xl border border-[#ffd7c6] bg-gradient-to-r from-[#ff8f66] to-[#ff7d4f] px-4 py-4 text-white shadow-[0_14px_30px_rgba(201,94,46,0.35)] sm:px-5">
                 <p className="text-xs uppercase tracking-[0.16em] text-white/80">Total pool</p>
