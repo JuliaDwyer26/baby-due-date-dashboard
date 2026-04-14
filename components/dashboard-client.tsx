@@ -288,7 +288,7 @@ export function DashboardClient({
               }}
               unoptimized
             />
-            <p className="mt-4 text-center text-2xl font-semibold tracking-tight text-white drop-shadow-lg sm:text-4xl">
+            <p className="mt-4 rounded-xl bg-white/80 px-4 py-2 text-center text-2xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
               Welcome! Let&apos;s make some mula!
             </p>
           </div>
@@ -296,7 +296,42 @@ export function DashboardClient({
       ) : null}
 
       <main className="mx-auto w-full max-w-[1320px] rounded-[28px] border border-white/10 bg-[#ffffff]/95 p-2 sm:p-3">
-        <div className="grid min-h-[760px] gap-2 lg:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="grid min-h-[760px] gap-2 lg:grid-cols-[220px_minmax(0,1fr)_300px]">
+          <aside className="hidden rounded-[22px] border border-[#e8ebf0] bg-white px-4 py-5 text-zinc-900 lg:flex lg:flex-col">
+            <div className="mb-8">
+              <p className="text-xl font-semibold tracking-tight text-zinc-900">baby pool</p>
+              <p className="text-xs text-zinc-500">figma mode</p>
+            </div>
+            <nav className="space-y-2 text-sm">
+              {["Overview", "Race Track", "Leaderboard", "Timeline", "Settings"].map((item, index) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left transition ${
+                    index === 0 ? "bg-[#f3f4f8] font-semibold text-zinc-900" : "text-zinc-600 hover:bg-[#f6f7fb] hover:text-zinc-900"
+                  }`}
+                >
+                  <span className="text-xs">{index === 0 ? "●" : "○"}</span>
+                  {item}
+                </button>
+              ))}
+            </nav>
+            <div className="mt-auto rounded-2xl border border-[#eceff4] bg-[#f8f9fc] p-3">
+              <p className="text-xs text-zinc-500">Sound</p>
+              <button
+                type="button"
+                className={`mt-2 w-full rounded-xl px-3 py-2 text-xs font-semibold ${
+                  soundArmed ? "bg-[#7b61ff] text-white" : "bg-white text-zinc-700"
+                }`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  armAudio();
+                }}
+              >
+                {soundArmed ? "Dramatic ON" : "Enable FX"}
+              </button>
+            </div>
+          </aside>
 
           <section className="rounded-[22px] border border-[#ececf1] bg-white p-4 sm:p-5">
             <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
