@@ -269,7 +269,7 @@ export function DashboardClient({
 
   return (
     <div
-      className="min-h-screen bg-[radial-gradient(circle_at_20%_0%,_#2a2a34_0%,_#1f1f28_45%,_#17171d_100%)] px-2 py-3 text-zinc-900 sm:px-8 sm:py-8"
+      className="min-h-screen bg-white px-2 py-3 text-[#f2f2f2] sm:px-8 sm:py-8"
       onClick={armAudio}
     >
       {introVisible ? (
@@ -295,7 +295,7 @@ export function DashboardClient({
         </div>
       ) : null}
 
-      <main className="mx-auto w-full max-w-[1320px] rounded-[28px] border border-white/10 bg-[#ffffff]/95 p-2 shadow-[0_30px_70px_rgba(0,0,0,0.4)] sm:p-3">
+      <main className="mx-auto w-full max-w-[1320px] rounded-[28px] border border-white/10 bg-[#ffffff]/95 p-2 sm:p-3">
         <div className="grid min-h-[760px] gap-2 lg:grid-cols-[220px_minmax(0,1fr)_300px]">
           <aside className="hidden rounded-[22px] border border-[#2e2e39] bg-[#1f1f27] px-4 py-5 text-zinc-100 lg:flex lg:flex-col">
             <div className="mb-8">
@@ -338,7 +338,7 @@ export function DashboardClient({
           <section className="rounded-[22px] border border-[#ececf1] bg-white p-4 sm:p-5">
             <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <h1 className="text-2xl font-semibold tracking-tight text-[#1e1f26] sm:text-3xl">Hello, Baby Betters!</h1>
+                <h1 className="text-2xl font-semibold tracking-tight text-[#1e1f26] sm:text-3xl">Hello, ya filthy gamblers!</h1>
                 <p className="text-sm text-zinc-500">Track the race progress as we get closer to due date.</p>
               </div>
               <div className="rounded-full border border-[#eceff4] bg-[#f8f8fb] px-3 py-1.5 text-xs font-medium text-zinc-600">
@@ -351,7 +351,7 @@ export function DashboardClient({
               <div className="mt-2 grid gap-2 sm:grid-cols-2">
                 <article className="rounded-xl border border-[#e7e2ff] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Expected due date</p>
-                  <p className="text-base font-bold text-[#1e1f26] sm:text-lg">April 16</p>
+                  <p className="text-base font-bold text-zinc-900 sm:text-lg">April 16</p>
                 </article>
                 <article className="rounded-xl border border-[#cdeeff] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Induction date</p>
@@ -361,14 +361,14 @@ export function DashboardClient({
             </section>
 
             <section className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
-              <article className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#f24e1e_0%,#a259ff_45%,#18a0fb_100%)] p-[2px]">
-                <div className="rounded-[14px] bg-white px-4 py-4 text-zinc-900 sm:px-5">
+              <article className="overflow-hidden rounded-2xl border-2 border-transparent [background:linear-gradient(#ffffff,#ffffff)_padding-box,linear-gradient(135deg,#f24e1e_0%,#a259ff_45%,#18a0fb_100%)_border-box]">
+                <div className="align-middle rounded-[14px] bg-white px-4 py-4 text-zinc-900 sm:px-5">
                   <p className="text-xs uppercase tracking-[0.16em] text-zinc-500">Total pool</p>
                   <p className="mt-1 text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl">${potUsd}</p>
                   <p className="mt-1 text-xs text-zinc-500">${entryFeeUsd} per paid entrant</p>
                 </div>
               </article>
-              <article className="rounded-2xl border border-[#e7ebf2] bg-[#f8f8fc] px-4 py-4 shadow-[0_8px_18px_rgba(33,35,39,0.08)]">
+              <article className="rounded-2xl border border-[#e7ebf2] bg-[#f8f8fc] px-4 py-4">
                 <p className="text-xs uppercase tracking-[0.12em] text-zinc-500">Entrants</p>
                 <p className="mt-1 text-3xl font-bold tracking-tight text-zinc-900">{totalEntrants}</p>
                 <p className="mt-2 text-xs text-zinc-500">
@@ -380,7 +380,7 @@ export function DashboardClient({
               </article>
             </section>
 
-            <section className="mt-3 rounded-2xl border border-[#e7ebf2] bg-gradient-to-b from-[#ffffff] to-[#f8f8fd] p-3 shadow-[0_10px_24px_rgba(33,35,39,0.07)] sm:p-4">
+            <section className="mt-3 rounded-2xl border border-[#e7ebf2] bg-gradient-to-b from-[#ffffff] to-[#f8f8fd] p-3 sm:p-4">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h2 className="text-lg font-semibold tracking-tight sm:text-xl">Face-off race track</h2>
@@ -401,7 +401,7 @@ export function DashboardClient({
                 {raceLanes.map((lane) => (
                   <div
                     key={lane.id}
-                    className="relative rounded-xl border border-[#eaedf3] bg-white p-3 shadow-[0_5px_14px_rgba(33,35,39,0.06)]"
+                    className="relative rounded-xl border border-[#eaedf3] bg-white p-3"
                   >
                     <div className="mb-2 flex items-center justify-between">
                       <div className="flex items-center gap-2">
