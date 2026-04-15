@@ -310,27 +310,29 @@ export function DashboardClient({
           <section className="rounded-[22px] border border-[#ececf1] bg-white p-4 sm:p-5">
             <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <h1 className="text-2xl font-semibold tracking-tight text-[#1e1f26] sm:text-3xl">Baby Larson Betting Extravangza</h1>
+                <h1 className="bg-gradient-to-r from-[#1e1f26] via-[#3a3f55] to-[#6b5cf6] bg-clip-text text-2xl font-extrabold tracking-tight text-transparent sm:text-3xl">
+                  Baby betting dashboard
+                </h1>
               </div>
             </header>
 
             <section className="mb-3 rounded-2xl border border-[#ececf1] bg-white p-3 sm:p-4">
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6b5cf6]">Key Dates</p>
-              <div className="mt-2 grid gap-2 sm:grid-cols-2">
-                <article className="rounded-xl border border-[#e7e2ff] bg-white px-3 py-2">
-                  <p className="text-xs text-zinc-500">Expected due date</p>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                <article className="min-w-0 rounded-xl border border-[#e7e2ff] bg-white px-3 py-2">
+                  <p className="text-xs text-zinc-500">Due date</p>
                   <p className="text-base font-bold text-zinc-900 sm:text-lg">April 16</p>
-                  <p className="mt-0.5 text-[11px] text-zinc-500">{expectedDueCountdown}</p>
+                  <p className="mt-0.5 truncate text-[11px] text-zinc-500">{expectedDueCountdown}</p>
                 </article>
-                <article className="rounded-xl border border-[#ececf1] bg-white px-3 py-2">
+                <article className="min-w-0 rounded-xl border border-[#ececf1] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Induction date</p>
                   <p className="text-base font-bold text-zinc-900 sm:text-lg">April 18</p>
-                  <p className="mt-0.5 text-[11px] text-zinc-500">{inductionCountdown}</p>
+                  <p className="mt-0.5 truncate text-[11px] text-zinc-500">{inductionCountdown}</p>
                 </article>
               </div>
             </section>
 
-            <section className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
+            <section className="mt-2">
               <article className="overflow-hidden rounded-2xl border-2 border-transparent [background:linear-gradient(#ffffff,#ffffff)_padding-box,linear-gradient(135deg,#f24e1e_0%,#a259ff_45%,#18a0fb_100%)_border-box]">
                 <div className="align-middle rounded-[14px] bg-white px-4 py-4 text-zinc-900 sm:px-5">
                   <p className="text-xs uppercase tracking-[0.16em] text-zinc-500">Total pool</p>
@@ -338,31 +340,20 @@ export function DashboardClient({
                   <p className="mt-1 text-xs text-zinc-500">${entryFeeUsd} per paid entrant</p>
                 </div>
               </article>
-              <article className="rounded-2xl border border-[#e7ebf2] bg-[#f8f8fc] px-4 py-4">
-                <p className="text-xs uppercase tracking-[0.12em] text-zinc-500">Entrants</p>
-                <p className="mt-1 text-3xl font-bold tracking-tight text-zinc-900">{totalEntrants}</p>
-                <p className="mt-2 text-xs text-zinc-500">
-                  Active: <span className="font-semibold text-zinc-700">{activeCount}</span>
-                </p>
-                <p className="text-xs text-zinc-500">
-                  Paid: <span className="font-semibold text-zinc-700">{paidCount}</span>
-                </p>
-              </article>
             </section>
 
             <section className="mt-3 rounded-2xl border border-[#e7ebf2] bg-gradient-to-b from-[#ffffff] to-[#f8f8fd] p-3 sm:p-4">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <h2 className="text-lg font-semibold tracking-tight sm:text-xl">Face-off race track</h2>
-                  <p className="text-xs text-zinc-500">Primary board - this decides who wins.</p>
+                  <h2 className="text-lg font-semibold tracking-tight sm:text-xl">Leaderboard</h2>
                 </div>
-                <span className="rounded-full border border-[#eceff4] bg-white px-3 py-1 text-xs font-medium text-zinc-600">
+                <span className="rounded-full border border-green-300/70 bg-green-50 px-3 py-1 text-xs font-semibold text-green-700 ring-[0.5px] ring-green-400/45 [animation:pulse_2.8s_cubic-bezier(0.4,0,0.6,1)_infinite]">
                   {countdownLabel(dueDateMs, nowMs)}
                 </span>
               </div>
-              <div className="mb-4 h-2.5 rounded-full bg-[#eceef4]">
+              <div className="mb-4 h-2 rounded-full bg-[#eceef4] sm:h-2.5">
                 <div
-                  className="h-2.5 rounded-full bg-gradient-to-r from-[#f24e1e] via-[#a259ff] to-[#18a0fb]"
+                  className="h-2 rounded-full bg-gradient-to-r from-[#f24e1e] via-[#a259ff] to-[#18a0fb] sm:h-2.5"
                   style={{ width: `${scheduleProgress}%` }}
                 />
               </div>
@@ -373,7 +364,7 @@ export function DashboardClient({
                     key={lane.id}
                     className="relative rounded-xl border border-[#eaedf3] bg-white p-3"
                   >
-                    <div className="mb-2 flex items-center justify-between">
+                    <div className="mb-2 flex items-center">
                       <div className="flex min-w-0 items-center gap-2">
                         <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-14 w-14 sm:h-14 sm:w-14" />
                         <div className="min-w-0">
@@ -381,22 +372,14 @@ export function DashboardClient({
                           <p className="text-xs font-medium text-zinc-600">Voted: {formatVote(lane.dateGuess, lane.timeGuess)}</p>
                         </div>
                       </div>
-                      <span
-                        className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-                          lane.isEliminated ? "bg-zinc-200 text-zinc-600" : "bg-[#efeaff] text-[#6b5cf6]"
-                        }`}
-                      >
-                        {lane.isEliminated ? "Out" : "In"}
-                      </span>
                     </div>
 
-                    <div className="relative h-5 rounded-full bg-[repeating-linear-gradient(90deg,#f5f6f9_0px,#f5f6f9_24px,#ffffff_24px,#ffffff_48px)] sm:h-[22px]">
-                      <div className="absolute right-2 top-0 h-full w-1 rounded-full bg-[#7b61ff]" />
+                    <div className="relative h-[5px] rounded-full bg-[#dfe3ea] sm:h-[7px]">
                       <div
                         className="absolute top-1/2 transition-all duration-1000 ease-out"
                         style={{ left: `${lane.progress}%`, transform: "translate(-50%, -50%)" }}
                       >
-                        <div className="h-4 w-4 rounded-full bg-[#22c55e] sm:hidden" />
+                        <div className="h-3 w-3 rounded-full bg-[#22c55e] sm:hidden" />
                         <div className="hidden sm:block">
                           <FaceImage
                             name={lane.name}
