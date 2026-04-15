@@ -188,6 +188,10 @@ export function DashboardClient({
   }, [bets, dueDateMs, nowMs]);
 
   const activeCount = totalEntrants - eliminated.size;
+  const fallenSoldiers = useMemo(
+    () => leaderboard.filter((entry) => eliminated.has(entry.id)),
+    [eliminated, leaderboard],
+  );
   const expectedDueMs = dueDateMs - 2 * 24 * 60 * 60 * 1000;
   const expectedDueCountdown = countdownLabel(expectedDueMs, nowMs);
   const inductionCountdown = countdownLabel(dueDateMs, nowMs);
@@ -447,6 +451,41 @@ export function DashboardClient({
                   ))}
                 </ul>
               </article>
+            </section>
+
+            <section className="mt-4 rounded-2xl border border-[#2c2c36] bg-[#14141a] p-3 text-zinc-100 sm:p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-base font-semibold tracking-tight sm:text-lg">Fallen Soldiers</h3>
+                <span className="rounded-full border border-zinc-600 bg-zinc-800 px-2.5 py-1 text-[11px] font-semibold text-zinc-200">
+                  {fallenSoldiers.length} out
+                </span>
+              </div>
+
+              {fallenSoldiers.length === 0 ? (
+                <p className="rounded-xl border border-zinc-700/70 bg-zinc-900/50 px-3 py-2 text-sm text-zinc-300">
+                  No one has fallen yet.
+                </p>
+              ) : (
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {fallenSoldiers.map((entry) => (
+                    <article
+                      key={entry.id}
+                      className="rounded-xl border border-zinc-700/70 bg-zinc-900/60 p-2.5"
+                    >
+                      <div className="flex items-center gap-2">
+                        <FaceImage name={entry.name} eliminated sizeClass="h-9 w-9" decorative />
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold text-zinc-100">{entry.name}</p>
+                          <p className="truncate text-xs text-zinc-300">
+                            Voted: {formatVote(entry.dateGuess, entry.timeGuess)}
+                          </p>
+                          <p className="text-[11px] text-zinc-400">{formatDuration(entry.deltaMs)} from target</p>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
             </section>
           </section>
 
