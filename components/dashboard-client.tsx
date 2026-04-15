@@ -32,6 +32,8 @@ type RankedBet = BetView & {
   deltaMs: number;
 };
 
+const WELCOME_SEEN_KEY = "baby-dashboard-welcome-seen-v1";
+
 function formatDuration(deltaMs: number): string {
   const abs = Math.abs(deltaMs);
   const dayMs = 24 * 60 * 60 * 1000;
@@ -104,6 +106,24 @@ function FaceImage({
   );
 }
 
+function GraveyardPlaceholder({ name }: { name: string }) {
+  return (
+    <div className="relative h-9 w-9 shrink-0">
+      <Image
+        src="/faces/placeholder-face.svg"
+        alt={`${name} graveyard placeholder`}
+        width={36}
+        height={36}
+        className="h-9 w-9 rounded-full border border-zinc-300 bg-zinc-100 p-1 grayscale"
+        unoptimized
+      />
+      <span className="absolute -bottom-1 -right-1 rounded-full border border-zinc-300 bg-white px-1 text-[9px] font-bold text-zinc-600">
+        RIP
+      </span>
+    </div>
+  );
+}
+
 export function DashboardClient({
   entryFeeUsd,
   dueDateMs,
@@ -112,18 +132,22 @@ export function DashboardClient({
   oddsByDate,
 }: DashboardClientProps) {
   const [nowMs, setNowMs] = useState(() => dueDateMs);
-  const [introVisible, setIntroVisible] = useState(true);
+  const [clockReady, setClockReady] = useState(false);
+  const [introVisible, setIntroVisible] = useState(false);
   const [introClosing, setIntroClosing] = useState(false);
   const [introLoaded, setIntroLoaded] = useState(false);
+  const [winnerVisible, setWinnerVisible] = useState(false);
+  const [winnerClosing, setWinnerClosing] = useState(false);
+  const [winnerLoaded, setWinnerLoaded] = useState(false);
+  const [winnerImageSrc, setWinnerImageSrc] = useState("/faces/placeholder-face.svg");
   const [soundArmed, setSoundArmed] = useState(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
-  const shownConfettiRef = useRef(false);
   const previousEliminatedRef = useRef<Set<string>>(new Set());
 
   const paidCount = useMemo(() => bets.filter((bet) => bet.paymentSent).length, [bets]);
   const totalEntrants = bets.length;
   const potUsd = totalEntrants * entryFeeUsd;
-  const comparisonMs = actualBirthMs ?? dueDateMs;
+  const comparisonMs = dueDateMs;
   const isActualResult = actualBirthMs !== null;
 
   const leaderboard = useMemo<RankedBet[]>(() => {
@@ -136,10 +160,11 @@ export function DashboardClient({
   }, [bets, comparisonMs]);
 
   const winner = leaderboard[0] ?? null;
+  const winnerDeclared = clockReady && nowMs >= dueDateMs;
 
   const eliminated = useMemo(() => {
     const result = new Set<string>();
-    if (isActualResult && winner) {
+    if (winnerDeclared && winner) {
       for (const bet of bets) {
         if (bet.id !== winner.id) {
           result.add(bet.id);
@@ -154,7 +179,7 @@ export function DashboardClient({
       }
     }
     return result;
-  }, [bets, isActualResult, nowMs, winner]);
+  }, [bets, nowMs, winner, winnerDeclared]);
 
   const raceLanes = useMemo(() => {
     const minGuessMs = Math.min(...bets.map((bet) => bet.guessMs));
@@ -228,8 +253,18 @@ export function DashboardClient({
   useEffect(() => {
     // Set the live clock only after mount to avoid SSR hydration mismatches.
     setNowMs(Date.now());
+    setClockReady(true);
     const timer = window.setInterval(() => setNowMs(Date.now()), 1000);
     return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const hasSeenWelcome = window.localStorage.getItem(WELCOME_SEEN_KEY) === "1";
+    if (hasSeenWelcome) {
+      return;
+    }
+    window.localStorage.setItem(WELCOME_SEEN_KEY, "1");
+    setIntroVisible(true);
   }, []);
 
   useEffect(() => {
@@ -258,18 +293,58 @@ export function DashboardClient({
   }, [introVisible]);
 
   useEffect(() => {
-    if (shownConfettiRef.current || nowMs < dueDateMs) {
+    if (!winnerDeclared || !winner) {
       return;
     }
 
-    shownConfettiRef.current = true;
+    const winnerSeenKey = `baby-dashboard-winner-seen-${dueDateMs}-${winner.id}`;
+    const hasSeenWinner = window.localStorage.getItem(winnerSeenKey) === "1";
+    if (hasSeenWinner) {
+      return;
+    }
+
+    window.localStorage.setItem(winnerSeenKey, "1");
+    setWinnerImageSrc(`/faces/${asSlug(winner.name)}.png`);
+    setWinnerLoaded(false);
+    setWinnerClosing(false);
+    setWinnerVisible(true);
+  }, [dueDateMs, winner, winnerDeclared]);
+
+  useEffect(() => {
+    if (!winnerLoaded || !winnerVisible) {
+      return;
+    }
+
+    const holdTimer = window.setTimeout(() => setWinnerClosing(true), 2500);
+    const closeTimer = window.setTimeout(() => setWinnerVisible(false), 3300);
+    return () => {
+      window.clearTimeout(holdTimer);
+      window.clearTimeout(closeTimer);
+    };
+  }, [winnerLoaded, winnerVisible]);
+
+  useEffect(() => {
+    if (!winnerVisible) {
+      return;
+    }
+    const fallbackTimer = window.setTimeout(() => {
+      setWinnerLoaded(true);
+    }, 4500);
+    return () => window.clearTimeout(fallbackTimer);
+  }, [winnerVisible]);
+
+  useEffect(() => {
+    if (!winnerVisible || !winnerLoaded) {
+      return;
+    }
+
     void confetti({
-      particleCount: 220,
-      spread: 90,
-      origin: { y: 0.6 },
+      particleCount: 280,
+      spread: 110,
+      origin: { y: 0.55 },
       colors: ["#7b61ff", "#a259ff", "#18a0fb", "#0acf83", "#ff7262", "#f24e1e"],
     });
-  }, [dueDateMs, nowMs]);
+  }, [winnerLoaded, winnerVisible]);
 
   useEffect(() => {
     const previous = previousEliminatedRef.current;
@@ -303,6 +378,32 @@ export function DashboardClient({
             />
             <p className="mt-4 rounded-xl bg-white/80 px-4 py-2 text-center text-2xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
               Welcome! Let&apos;s make some mula!
+            </p>
+          </div>
+        </div>
+      ) : null}
+
+      {winnerVisible && winner ? (
+        <div className={`intro-overlay ${winnerClosing ? "intro-overlay--closing" : ""}`}>
+          <div className="intro-baby">
+            <Image
+              src={winnerImageSrc}
+              alt={`${winner.name} winner portrait`}
+              className={`intro-baby-face ${winnerLoaded ? "intro-baby-face--loaded" : ""}`}
+              width={900}
+              height={900}
+              onLoad={() => setWinnerLoaded(true)}
+              onError={() => {
+                setWinnerImageSrc("/faces/placeholder-face.svg");
+                setWinnerLoaded(true);
+              }}
+              unoptimized
+            />
+            <p className="mt-4 rounded-xl bg-white/80 px-4 py-2 text-center text-2xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
+              Winner: {winner.name}
+            </p>
+            <p className="mt-2 rounded-xl bg-white/70 px-4 py-2 text-center text-sm font-medium text-zinc-700 sm:text-base">
+              Closest to the due date ({formatVote(winner.dateGuess, winner.timeGuess)})
             </p>
           </div>
         </div>
@@ -399,6 +500,41 @@ export function DashboardClient({
               </div>
             </section>
 
+            <section className="mt-4 rounded-2xl border border-[#e5e7eb] bg-white p-3 text-zinc-900 sm:p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-base font-semibold tracking-tight sm:text-lg">Fallen Soldiers</h3>
+                <span className="rounded-full border border-zinc-300 bg-zinc-50 px-2.5 py-1 text-[11px] font-semibold text-zinc-700">
+                  {fallenSoldiers.length} out
+                </span>
+              </div>
+
+              {fallenSoldiers.length === 0 ? (
+                <p className="rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-600">
+                  No one has fallen yet.
+                </p>
+              ) : (
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {fallenSoldiers.map((entry) => (
+                    <article
+                      key={entry.id}
+                      className="rounded-xl border border-zinc-200 bg-zinc-50 p-2.5"
+                    >
+                      <div className="flex items-center gap-2">
+                        <GraveyardPlaceholder name={entry.name} />
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold text-zinc-900">{entry.name}</p>
+                          <p className="truncate text-xs text-zinc-600">
+                            Voted: {formatVote(entry.dateGuess, entry.timeGuess)}
+                          </p>
+                          <p className="text-[11px] text-zinc-500">{formatDuration(entry.deltaMs)} from target</p>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </section>
+
             <section className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {[
                 ["Entrants", String(totalEntrants), "+2 today"],
@@ -453,40 +589,6 @@ export function DashboardClient({
               </article>
             </section>
 
-            <section className="mt-4 rounded-2xl border border-[#2c2c36] bg-[#14141a] p-3 text-zinc-100 sm:p-4">
-              <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-base font-semibold tracking-tight sm:text-lg">Fallen Soldiers</h3>
-                <span className="rounded-full border border-zinc-600 bg-zinc-800 px-2.5 py-1 text-[11px] font-semibold text-zinc-200">
-                  {fallenSoldiers.length} out
-                </span>
-              </div>
-
-              {fallenSoldiers.length === 0 ? (
-                <p className="rounded-xl border border-zinc-700/70 bg-zinc-900/50 px-3 py-2 text-sm text-zinc-300">
-                  No one has fallen yet.
-                </p>
-              ) : (
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {fallenSoldiers.map((entry) => (
-                    <article
-                      key={entry.id}
-                      className="rounded-xl border border-zinc-700/70 bg-zinc-900/60 p-2.5"
-                    >
-                      <div className="flex items-center gap-2">
-                        <FaceImage name={entry.name} eliminated sizeClass="h-9 w-9" decorative />
-                        <div className="min-w-0">
-                          <p className="truncate text-sm font-semibold text-zinc-100">{entry.name}</p>
-                          <p className="truncate text-xs text-zinc-300">
-                            Voted: {formatVote(entry.dateGuess, entry.timeGuess)}
-                          </p>
-                          <p className="text-[11px] text-zinc-400">{formatDuration(entry.deltaMs)} from target</p>
-                        </div>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              )}
-            </section>
           </section>
 
           <aside className="rounded-[22px] border border-[#e8ebf0] bg-[#fdfdff] p-4 sm:p-5">
