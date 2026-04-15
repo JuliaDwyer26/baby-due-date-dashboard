@@ -106,24 +106,6 @@ function FaceImage({
   );
 }
 
-function GraveyardPlaceholder({ name }: { name: string }) {
-  return (
-    <div className="relative h-9 w-9 shrink-0">
-      <Image
-        src="/faces/placeholder-face.svg"
-        alt={`${name} graveyard placeholder`}
-        width={36}
-        height={36}
-        className="h-9 w-9 rounded-full border border-zinc-300 bg-zinc-100 p-1 grayscale"
-        unoptimized
-      />
-      <span className="absolute -bottom-1 -right-1 rounded-full border border-zinc-300 bg-white px-1 text-[9px] font-bold text-zinc-600">
-        RIP
-      </span>
-    </div>
-  );
-}
-
 export function DashboardClient({
   entryFeeUsd,
   dueDateMs,
@@ -520,7 +502,7 @@ export function DashboardClient({
                       className="rounded-xl border border-zinc-200 bg-zinc-50 p-2.5"
                     >
                       <div className="flex items-center gap-2">
-                        <GraveyardPlaceholder name={entry.name} />
+                        <FaceImage name={entry.name} eliminated sizeClass="h-9 w-9" decorative />
                         <div className="min-w-0">
                           <p className="truncate text-sm font-semibold text-zinc-900">{entry.name}</p>
                           <p className="truncate text-xs text-zinc-600">

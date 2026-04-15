@@ -48,6 +48,68 @@ export type DashboardData = {
 };
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+const BET_TIME_ZONE = "America/Los_Angeles";
+
+function zonedDateTimeToDate({
+  year,
+  month,
+  day,
+  hour,
+  minute,
+  timeZone,
+}: {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  timeZone: string;
+}): Date {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  const desiredLocalMs = Date.UTC(year, month - 1, day, hour, minute, 0, 0);
+  let guessMs = desiredLocalMs;
+
+  // Iteratively converge on the UTC instant that renders as the desired local
+  // date/time in the target timezone (handles DST offsets correctly).
+  for (let i = 0; i < 3; i += 1) {
+    const parts = formatter.formatToParts(new Date(guessMs));
+    const getPart = (type: string) =>
+      Number(parts.find((part) => part.type === type)?.value ?? "0");
+
+    const zonedYear = getPart("year");
+    const zonedMonth = getPart("month");
+    const zonedDay = getPart("day");
+    const zonedHour = getPart("hour");
+    const zonedMinute = getPart("minute");
+
+    const renderedLocalMs = Date.UTC(
+      zonedYear,
+      zonedMonth - 1,
+      zonedDay,
+      zonedHour,
+      zonedMinute,
+      0,
+      0,
+    );
+
+    const delta = desiredLocalMs - renderedLocalMs;
+    if (delta === 0) {
+      break;
+    }
+    guessMs += delta;
+  }
+
+  return new Date(guessMs);
+}
 
 function parseDateTime(dateGuess: string, timeGuess: string): Date | null {
   const dateMatch = dateGuess.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
@@ -80,7 +142,14 @@ function parseDateTime(dateGuess: string, timeGuess: string): Date | null {
     hour += 12;
   }
 
-  return new Date(year, month - 1, day, hour, minute, 0, 0);
+  return zonedDateTimeToDate({
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    timeZone: BET_TIME_ZONE,
+  });
 }
 
 function parseCsvLine(line: string): string[] {
