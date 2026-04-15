@@ -68,16 +68,7 @@ function countdownLabel(targetMs: number, nowMs: number): string {
 }
 
 function formatVote(dateGuess: string, timeGuess: string): string {
-  const parsed = new Date(`${dateGuess} ${timeGuess}`);
-  if (Number.isNaN(parsed.getTime())) {
-    return `${dateGuess} at ${timeGuess}`;
-  }
-  return parsed.toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  });
+  return `${dateGuess} at ${timeGuess}`;
 }
 
 function clamp(value: number, min: number, max: number): number {
@@ -120,7 +111,7 @@ export function DashboardClient({
   bets,
   oddsByDate,
 }: DashboardClientProps) {
-  const [nowMs, setNowMs] = useState(() => Date.now());
+  const [nowMs, setNowMs] = useState(() => dueDateMs);
   const [introVisible, setIntroVisible] = useState(true);
   const [introClosing, setIntroClosing] = useState(false);
   const [introLoaded, setIntroLoaded] = useState(false);
@@ -131,7 +122,7 @@ export function DashboardClient({
 
   const paidCount = useMemo(() => bets.filter((bet) => bet.paymentSent).length, [bets]);
   const totalEntrants = bets.length;
-  const potUsd = paidCount * entryFeeUsd;
+  const potUsd = totalEntrants * entryFeeUsd;
   const comparisonMs = actualBirthMs ?? dueDateMs;
   const isActualResult = actualBirthMs !== null;
 
@@ -231,6 +222,8 @@ export function DashboardClient({
   };
 
   useEffect(() => {
+    // Set the live clock only after mount to avoid SSR hydration mismatches.
+    setNowMs(Date.now());
     const timer = window.setInterval(() => setNowMs(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, []);
@@ -317,11 +310,7 @@ export function DashboardClient({
           <section className="rounded-[22px] border border-[#ececf1] bg-white p-4 sm:p-5">
             <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <h1 className="text-2xl font-semibold tracking-tight text-[#1e1f26] sm:text-3xl">Hello, ya filthy gamblers!</h1>
-                <p className="text-sm text-zinc-900">Track the race progress as we get closer to due date.</p>
-              </div>
-              <div className="rounded-full border border-[#eceff4] bg-[#f8f8fb] px-3 py-1.5 text-xs font-medium text-zinc-600">
-                {formatDateTime(nowMs)}
+                <h1 className="text-2xl font-semibold tracking-tight text-[#1e1f26] sm:text-3xl">Baby Larson Betting Extravangza</h1>
               </div>
             </header>
 
@@ -333,7 +322,7 @@ export function DashboardClient({
                   <p className="text-base font-bold text-zinc-900 sm:text-lg">April 16</p>
                   <p className="mt-0.5 text-[11px] text-zinc-500">{expectedDueCountdown}</p>
                 </article>
-                <article className="rounded-xl border border-[#cdeeff] bg-white px-3 py-2">
+                <article className="rounded-xl border border-[#ececf1] bg-white px-3 py-2">
                   <p className="text-xs text-zinc-500">Induction date</p>
                   <p className="text-base font-bold text-zinc-900 sm:text-lg">April 18</p>
                   <p className="mt-0.5 text-[11px] text-zinc-500">{inductionCountdown}</p>
@@ -385,10 +374,10 @@ export function DashboardClient({
                     className="relative rounded-xl border border-[#eaedf3] bg-white p-3"
                   >
                     <div className="mb-2 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-12 w-12 sm:h-14 sm:w-14" />
-                        <div>
-                          <p className={`text-sm font-semibold ${lane.isEliminated ? "text-zinc-500" : ""}`}>{lane.name}</p>
+                      <div className="flex min-w-0 items-center gap-2">
+                        <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-14 w-14 sm:h-14 sm:w-14" />
+                        <div className="min-w-0">
+                          <p className={`truncate text-sm font-semibold ${lane.isEliminated ? "text-zinc-500" : ""}`}>{lane.name}</p>
                           <p className="text-xs font-medium text-zinc-600">Voted: {formatVote(lane.dateGuess, lane.timeGuess)}</p>
                         </div>
                       </div>
@@ -407,12 +396,15 @@ export function DashboardClient({
                         className="absolute top-1/2 transition-all duration-1000 ease-out"
                         style={{ left: `${lane.progress}%`, transform: "translate(-50%, -50%)" }}
                       >
-                        <FaceImage
-                          name={lane.name}
-                          eliminated={lane.isEliminated}
-                          sizeClass="h-14 w-14 sm:h-16 sm:w-16"
-                          decorative
-                        />
+                        <div className="h-4 w-4 rounded-full bg-[#22c55e] sm:hidden" />
+                        <div className="hidden sm:block">
+                          <FaceImage
+                            name={lane.name}
+                            eliminated={lane.isEliminated}
+                            sizeClass="h-16 w-16"
+                            decorative
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
