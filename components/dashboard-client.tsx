@@ -33,6 +33,28 @@ type RankedBet = BetView & {
 };
 
 const WELCOME_SEEN_KEY = "baby-dashboard-welcome-seen-v1";
+const FALLEN_QUOTES: Record<string, string> = {
+  "Tanner Larson": "Brought big hat energy, left before the encore.",
+  Juju: "Had a clean line to victory until the stork rerouted traffic.",
+  "Gail Dwyer": "Set the alarm for dawn and destiny still slept in.",
+  "Rex Joffray": "Threw an early heater, just missed the strike zone.",
+  Debs: "Dropped a sharp prediction and got robbed by overtime.",
+  Kalina: "Played it cool, got iced by the final whistle.",
+  "Jesse Joffray": "Went bold for a late arrival and almost stole it.",
+  "Kalina's Future Dog": "Pawed at greatness, buried by the timeline.",
+  "Amy Graham": "Made the board look easy, time made it rude.",
+  "Meechy Joffray": "Came in loud, exited by technical knockout.",
+  "Uncle Brett": "Called his shot at 2:00 AM and still hit snooze on destiny.",
+  "Pepe Le Pew (Uncle Rex)": "Led the parade, tripped on the finish tape.",
+  "Loki Jones": "Predicted with confidence, foiled by the clock gods.",
+  "The Biggest (Nate)": "Swung for dramatic timing and clipped the rim.",
+  Tara: "A stylish late bet that narrowly missed the spotlight.",
+  "Karen Larson": "Played the long game and got short-changed by minutes.",
+  "Edwin Larson": "Came in with swagger, left by calendar technicality.",
+  Paul: "Clocked in with precision, clocked out by chaos.",
+  CK: "Took a moonshot and landed in next week's weather.",
+  "The Mother (Katherine)": "Even Mama HQ can't out-negotiate baby timing.",
+};
 
 function formatDuration(deltaMs: number): string {
   const abs = Math.abs(deltaMs);
@@ -75,6 +97,10 @@ function formatVote(dateGuess: string, timeGuess: string): string {
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
+}
+
+function getFallenQuote(name: string): string {
+  return FALLEN_QUOTES[name] ?? "Fought bravely, lost to the chaos of baby time.";
 }
 
 function FaceImage({
@@ -509,6 +535,7 @@ export function DashboardClient({
                             Voted: {formatVote(entry.dateGuess, entry.timeGuess)}
                           </p>
                           <p className="text-[11px] text-zinc-500">{formatDuration(entry.deltaMs)} from target</p>
+                          <p className="mt-1 text-xs italic text-zinc-700">{getFallenQuote(entry.name)}</p>
                         </div>
                       </div>
                     </article>
