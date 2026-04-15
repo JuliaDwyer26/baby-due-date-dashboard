@@ -1,0 +1,387 @@
+[
+  {
+    "source": "8732C7E1-2964-4EB5-A2B6-32D81D09283E-04b8ba3d-6f7d-4c4a-9bc9-1df3131d2f7d.png",
+    "face_index": 1,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/8732c7e1-2964-4eb5-a2b6-32d81d09283e-04b8ba3d-6f7d-4c4a-9bc9-1df3131d2f7d-face-1.png",
+    "bbox": [
+      319,
+      138,
+      89,
+      89
+    ]
+  },
+  {
+    "source": "8732C7E1-2964-4EB5-A2B6-32D81D09283E-04b8ba3d-6f7d-4c4a-9bc9-1df3131d2f7d.png",
+    "face_index": 2,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/8732c7e1-2964-4eb5-a2b6-32d81d09283e-04b8ba3d-6f7d-4c4a-9bc9-1df3131d2f7d-face-2.png",
+    "bbox": [
+      703,
+      228,
+      112,
+      112
+    ]
+  },
+  {
+    "source": "D7C3EF26-0EBF-4A86-B144-0605086676D9-0de7b12a-551d-43a3-96b3-73ccce83a967.png",
+    "face_index": 1,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/d7c3ef26-0ebf-4a86-b144-0605086676d9-0de7b12a-551d-43a3-96b3-73ccce83a967-face-1.png",
+    "bbox": [
+      480,
+      124,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "D7C3EF26-0EBF-4A86-B144-0605086676D9-0de7b12a-551d-43a3-96b3-73ccce83a967.png",
+    "face_index": 2,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/d7c3ef26-0ebf-4a86-b144-0605086676d9-0de7b12a-551d-43a3-96b3-73ccce83a967-face-2.png",
+    "bbox": [
+      699,
+      229,
+      157,
+      157
+    ]
+  },
+  {
+    "source": "D7C3EF26-0EBF-4A86-B144-0605086676D9-0de7b12a-551d-43a3-96b3-73ccce83a967.png",
+    "face_index": 3,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/d7c3ef26-0ebf-4a86-b144-0605086676d9-0de7b12a-551d-43a3-96b3-73ccce83a967-face-3.png",
+    "bbox": [
+      492,
+      230,
+      122,
+      122
+    ]
+  },
+  {
+    "source": "D7C3EF26-0EBF-4A86-B144-0605086676D9-0de7b12a-551d-43a3-96b3-73ccce83a967.png",
+    "face_index": 4,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/d7c3ef26-0ebf-4a86-b144-0605086676d9-0de7b12a-551d-43a3-96b3-73ccce83a967-face-4.png",
+    "bbox": [
+      319,
+      312,
+      126,
+      126
+    ]
+  },
+  {
+    "source": "E0257044-99E3-48A3-9043-5F3741217111-c78194e5-411d-4d99-bd7c-735f6f5c952a.png",
+    "face_index": 1,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/e0257044-99e3-48a3-9043-5f3741217111-c78194e5-411d-4d99-bd7c-735f6f5c952a-face-1.png",
+    "bbox": [
+      334,
+      141,
+      138,
+      138
+    ]
+  },
+  {
+    "source": "E0257044-99E3-48A3-9043-5F3741217111-c78194e5-411d-4d99-bd7c-735f6f5c952a.png",
+    "face_index": 2,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/e0257044-99e3-48a3-9043-5f3741217111-c78194e5-411d-4d99-bd7c-735f6f5c952a-face-2.png",
+    "bbox": [
+      475,
+      143,
+      136,
+      136
+    ]
+  },
+  {
+    "source": "E0257044-99E3-48A3-9043-5F3741217111-c78194e5-411d-4d99-bd7c-735f6f5c952a.png",
+    "face_index": 3,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/e0257044-99e3-48a3-9043-5f3741217111-c78194e5-411d-4d99-bd7c-735f6f5c952a-face-3.png",
+    "bbox": [
+      971,
+      191,
+      53,
+      53
+    ]
+  },
+  {
+    "source": "FFA578AC-4B27-45C6-B1CC-F571ADD42A9A-46779bc7-67b1-40b4-9a5b-4886ebc2a160.png",
+    "face_index": 1,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/ffa578ac-4b27-45c6-b1cc-f571add42a9a-46779bc7-67b1-40b4-9a5b-4886ebc2a160-face-1.png",
+    "bbox": [
+      198,
+      181,
+      353,
+      353
+    ]
+  },
+  {
+    "source": "FFA578AC-4B27-45C6-B1CC-F571ADD42A9A-46779bc7-67b1-40b4-9a5b-4886ebc2a160.png",
+    "face_index": 2,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/ffa578ac-4b27-45c6-b1cc-f571add42a9a-46779bc7-67b1-40b4-9a5b-4886ebc2a160-face-2.png",
+    "bbox": [
+      329,
+      281,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "FFA578AC-4B27-45C6-B1CC-F571ADD42A9A-46779bc7-67b1-40b4-9a5b-4886ebc2a160.png",
+    "face_index": 3,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/ffa578ac-4b27-45c6-b1cc-f571add42a9a-46779bc7-67b1-40b4-9a5b-4886ebc2a160-face-3.png",
+    "bbox": [
+      502,
+      300,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "4501564E-3C86-4F09-8E87-2687D207D568-deb4abff-0056-4b5b-8a86-e14b90946123.png",
+    "face_index": 1,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/4501564e-3c86-4f09-8e87-2687d207d568-deb4abff-0056-4b5b-8a86-e14b90946123-face-1.png",
+    "bbox": [
+      471,
+      35,
+      116,
+      116
+    ]
+  },
+  {
+    "source": "4501564E-3C86-4F09-8E87-2687D207D568-deb4abff-0056-4b5b-8a86-e14b90946123.png",
+    "face_index": 2,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/4501564e-3c86-4f09-8e87-2687d207d568-deb4abff-0056-4b5b-8a86-e14b90946123-face-2.png",
+    "bbox": [
+      179,
+      93,
+      123,
+      123
+    ]
+  },
+  {
+    "source": "4501564E-3C86-4F09-8E87-2687D207D568-deb4abff-0056-4b5b-8a86-e14b90946123.png",
+    "face_index": 3,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/4501564e-3c86-4f09-8e87-2687d207d568-deb4abff-0056-4b5b-8a86-e14b90946123-face-3.png",
+    "bbox": [
+      566,
+      117,
+      92,
+      92
+    ]
+  },
+  {
+    "source": "4501564E-3C86-4F09-8E87-2687D207D568-deb4abff-0056-4b5b-8a86-e14b90946123.png",
+    "face_index": 4,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/4501564e-3c86-4f09-8e87-2687d207d568-deb4abff-0056-4b5b-8a86-e14b90946123-face-4.png",
+    "bbox": [
+      353,
+      125,
+      117,
+      117
+    ]
+  },
+  {
+    "source": "4501564E-3C86-4F09-8E87-2687D207D568-deb4abff-0056-4b5b-8a86-e14b90946123.png",
+    "face_index": 5,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/4501564e-3c86-4f09-8e87-2687d207d568-deb4abff-0056-4b5b-8a86-e14b90946123-face-5.png",
+    "bbox": [
+      611,
+      211,
+      138,
+      138
+    ]
+  },
+  {
+    "source": "4501564E-3C86-4F09-8E87-2687D207D568-deb4abff-0056-4b5b-8a86-e14b90946123.png",
+    "face_index": 6,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/4501564e-3c86-4f09-8e87-2687d207d568-deb4abff-0056-4b5b-8a86-e14b90946123-face-6.png",
+    "bbox": [
+      460,
+      276,
+      81,
+      81
+    ]
+  },
+  {
+    "source": "4501564E-3C86-4F09-8E87-2687D207D568-deb4abff-0056-4b5b-8a86-e14b90946123.png",
+    "face_index": 7,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/4501564e-3c86-4f09-8e87-2687d207d568-deb4abff-0056-4b5b-8a86-e14b90946123-face-7.png",
+    "bbox": [
+      126,
+      320,
+      116,
+      116
+    ]
+  },
+  {
+    "source": "4501564E-3C86-4F09-8E87-2687D207D568-deb4abff-0056-4b5b-8a86-e14b90946123.png",
+    "face_index": 8,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/4501564e-3c86-4f09-8e87-2687d207d568-deb4abff-0056-4b5b-8a86-e14b90946123-face-8.png",
+    "bbox": [
+      69,
+      786,
+      63,
+      63
+    ]
+  },
+  {
+    "source": "910E97E8-4620-46C4-A11C-4A34353F78AA-134785fc-dff4-4454-a18a-68055641224c.png",
+    "face_index": 1,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/910e97e8-4620-46c4-a11c-4a34353f78aa-134785fc-dff4-4454-a18a-68055641224c-face-1.png",
+    "bbox": [
+      397,
+      102,
+      138,
+      138
+    ]
+  },
+  {
+    "source": "910E97E8-4620-46C4-A11C-4A34353F78AA-134785fc-dff4-4454-a18a-68055641224c.png",
+    "face_index": 2,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/910e97e8-4620-46c4-a11c-4a34353f78aa-134785fc-dff4-4454-a18a-68055641224c-face-2.png",
+    "bbox": [
+      383,
+      159,
+      129,
+      129
+    ]
+  },
+  {
+    "source": "910E97E8-4620-46C4-A11C-4A34353F78AA-134785fc-dff4-4454-a18a-68055641224c.png",
+    "face_index": 3,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/910e97e8-4620-46c4-a11c-4a34353f78aa-134785fc-dff4-4454-a18a-68055641224c-face-3.png",
+    "bbox": [
+      176,
+      162,
+      134,
+      134
+    ]
+  },
+  {
+    "source": "910E97E8-4620-46C4-A11C-4A34353F78AA-134785fc-dff4-4454-a18a-68055641224c.png",
+    "face_index": 4,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/910e97e8-4620-46c4-a11c-4a34353f78aa-134785fc-dff4-4454-a18a-68055641224c-face-4.png",
+    "bbox": [
+      66,
+      348,
+      64,
+      64
+    ]
+  },
+  {
+    "source": "910E97E8-4620-46C4-A11C-4A34353F78AA-134785fc-dff4-4454-a18a-68055641224c.png",
+    "face_index": 5,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/910e97e8-4620-46c4-a11c-4a34353f78aa-134785fc-dff4-4454-a18a-68055641224c-face-5.png",
+    "bbox": [
+      538,
+      567,
+      63,
+      63
+    ]
+  },
+  {
+    "source": "7EEB76CC-A784-44AF-AAFB-73D551D3BE80-1ff8f874-f5cd-47d7-99f3-494b8c15ba4b.png",
+    "face_index": 1,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/7eeb76cc-a784-44af-aafb-73d551d3be80-1ff8f874-f5cd-47d7-99f3-494b8c15ba4b-face-1.png",
+    "bbox": [
+      437,
+      273,
+      77,
+      77
+    ]
+  },
+  {
+    "source": "7EEB76CC-A784-44AF-AAFB-73D551D3BE80-1ff8f874-f5cd-47d7-99f3-494b8c15ba4b.png",
+    "face_index": 2,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/7eeb76cc-a784-44af-aafb-73d551d3be80-1ff8f874-f5cd-47d7-99f3-494b8c15ba4b-face-2.png",
+    "bbox": [
+      115,
+      313,
+      88,
+      88
+    ]
+  },
+  {
+    "source": "7EEB76CC-A784-44AF-AAFB-73D551D3BE80-1ff8f874-f5cd-47d7-99f3-494b8c15ba4b.png",
+    "face_index": 3,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/7eeb76cc-a784-44af-aafb-73d551d3be80-1ff8f874-f5cd-47d7-99f3-494b8c15ba4b-face-3.png",
+    "bbox": [
+      215,
+      335,
+      79,
+      79
+    ]
+  },
+  {
+    "source": "7EEB76CC-A784-44AF-AAFB-73D551D3BE80-1ff8f874-f5cd-47d7-99f3-494b8c15ba4b.png",
+    "face_index": 4,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/7eeb76cc-a784-44af-aafb-73d551d3be80-1ff8f874-f5cd-47d7-99f3-494b8c15ba4b-face-4.png",
+    "bbox": [
+      497,
+      618,
+      93,
+      93
+    ]
+  },
+  {
+    "source": "65BDCA0A-5041-4DB0-B3F2-3601D73AE7BB-3d96506a-7490-4bd2-bc21-475d08cc8615.png",
+    "face_index": 1,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/65bdca0a-5041-4db0-b3f2-3601d73ae7bb-3d96506a-7490-4bd2-bc21-475d08cc8615-face-1.png",
+    "bbox": [
+      426,
+      483,
+      159,
+      159
+    ]
+  },
+  {
+    "source": "65BDCA0A-5041-4DB0-B3F2-3601D73AE7BB-3d96506a-7490-4bd2-bc21-475d08cc8615.png",
+    "face_index": 2,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/65bdca0a-5041-4db0-b3f2-3601d73ae7bb-3d96506a-7490-4bd2-bc21-475d08cc8615-face-2.png",
+    "bbox": [
+      219,
+      533,
+      136,
+      136
+    ]
+  },
+  {
+    "source": "65BDCA0A-5041-4DB0-B3F2-3601D73AE7BB-3d96506a-7490-4bd2-bc21-475d08cc8615.png",
+    "face_index": 3,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/65bdca0a-5041-4db0-b3f2-3601d73ae7bb-3d96506a-7490-4bd2-bc21-475d08cc8615-face-3.png",
+    "bbox": [
+      347,
+      647,
+      53,
+      53
+    ]
+  },
+  {
+    "source": "65BDCA0A-5041-4DB0-B3F2-3601D73AE7BB-3d96506a-7490-4bd2-bc21-475d08cc8615.png",
+    "face_index": 4,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/65bdca0a-5041-4db0-b3f2-3601d73ae7bb-3d96506a-7490-4bd2-bc21-475d08cc8615-face-4.png",
+    "bbox": [
+      106,
+      664,
+      69,
+      69
+    ]
+  },
+  {
+    "source": "DF71E128-BCC4-46F7-A2B4-D27B02A570D9-b9d15d6a-f5a4-4ba5-af2e-709ce9249c5c.png",
+    "face_index": 1,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/df71e128-bcc4-46f7-a2b4-d27b02a570d9-b9d15d6a-f5a4-4ba5-af2e-709ce9249c5c-face-1.png",
+    "bbox": [
+      465,
+      297,
+      77,
+      77
+    ]
+  },
+  {
+    "source": "DF71E128-BCC4-46F7-A2B4-D27B02A570D9-b9d15d6a-f5a4-4ba5-af2e-709ce9249c5c.png",
+    "face_index": 2,
+    "output": "/Users/julia/julia-os/baby-due-date-dashboard/public/faces/diecuts/df71e128-bcc4-46f7-a2b4-d27b02a570d9-b9d15d6a-f5a4-4ba5-af2e-709ce9249c5c-face-2.png",
+    "bbox": [
+      409,
+      301,
+      73,
+      73
+    ]
+  }
+]
