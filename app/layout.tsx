@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Baby Larson Due Date Pool",
+  title: "Baby Larson Betting Extravangza",
   description: "Betting dashboard overview for due date guesses.",
 };
 

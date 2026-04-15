@@ -377,7 +377,7 @@ export function DashboardClient({
               unoptimized
             />
             <p className="mt-4 rounded-xl bg-white/80 px-4 py-2 text-center text-2xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
-              Welcome! Let&apos;s make some mula!
+              Place your bets on Baby Larson!
             </p>
           </div>
         </div>
