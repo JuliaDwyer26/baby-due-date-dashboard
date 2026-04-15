@@ -189,12 +189,18 @@ export function DashboardClient({
     return result;
   }, [bets, nowMs, winner, winnerDeclared]);
 
+  const activeLeaderboard = useMemo(
+    () => leaderboard.filter((entry) => !eliminated.has(entry.id)),
+    [eliminated, leaderboard],
+  );
+
   const raceLanes = useMemo(() => {
     const minGuessMs = Math.min(...bets.map((bet) => bet.guessMs));
     const maxGuessMs = Math.max(...bets.map((bet) => bet.guessMs));
     const rangeMs = Math.max(maxGuessMs - minGuessMs, 6 * 60 * 60 * 1000);
 
     return bets
+      .filter((bet) => !eliminated.has(bet.id))
       .map((bet) => {
         let progress = 10;
         if (isActualResult) {
@@ -472,39 +478,45 @@ export function DashboardClient({
               </div>
 
               <div className="space-y-2 pr-1">
-                {raceLanes.map((lane) => (
-                  <div
-                    key={lane.id}
-                    className="relative rounded-xl border border-[#eaedf3] bg-white p-3"
-                  >
-                    <div className="mb-2 flex items-center">
-                      <div className="flex min-w-0 items-center gap-2">
-                        <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-14 w-14 sm:h-14 sm:w-14" />
-                        <div className="min-w-0">
-                          <p className={`truncate text-sm font-semibold ${lane.isEliminated ? "text-zinc-500" : ""}`}>{lane.name}</p>
-                          <p className="text-xs font-medium text-zinc-600">Voted: {formatVote(lane.dateGuess, lane.timeGuess)}</p>
+                {raceLanes.length === 0 ? (
+                  <p className="rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-600">
+                    No active runners left.
+                  </p>
+                ) : (
+                  raceLanes.map((lane) => (
+                    <div
+                      key={lane.id}
+                      className="relative rounded-xl border border-[#eaedf3] bg-white p-3"
+                    >
+                      <div className="mb-2 flex items-center">
+                        <div className="flex min-w-0 items-center gap-2">
+                          <FaceImage name={lane.name} eliminated={lane.isEliminated} sizeClass="h-14 w-14 sm:h-14 sm:w-14" />
+                          <div className="min-w-0">
+                            <p className={`truncate text-sm font-semibold ${lane.isEliminated ? "text-zinc-500" : ""}`}>{lane.name}</p>
+                            <p className="text-xs font-medium text-zinc-600">Voted: {formatVote(lane.dateGuess, lane.timeGuess)}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="relative h-[5px] rounded-full bg-[#dfe3ea] sm:h-[7px]">
-                      <div
-                        className="absolute top-1/2 transition-all duration-1000 ease-out"
-                        style={{ left: `${lane.progress}%`, transform: "translate(-50%, -50%)" }}
-                      >
-                        <div className="h-3 w-3 rounded-full bg-[#22c55e] sm:hidden" />
-                        <div className="hidden sm:block">
-                          <FaceImage
-                            name={lane.name}
-                            eliminated={lane.isEliminated}
-                            sizeClass="h-16 w-16"
-                            decorative
-                          />
+                      <div className="relative h-[5px] rounded-full bg-[#dfe3ea] sm:h-[7px]">
+                        <div
+                          className="absolute top-1/2 transition-all duration-1000 ease-out"
+                          style={{ left: `${lane.progress}%`, transform: "translate(-50%, -50%)" }}
+                        >
+                          <div className="h-3 w-3 rounded-full bg-[#22c55e] sm:hidden" />
+                          <div className="hidden sm:block">
+                            <FaceImage
+                              name={lane.name}
+                              eliminated={lane.isEliminated}
+                              sizeClass="h-16 w-16"
+                              decorative
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </section>
 
@@ -563,7 +575,7 @@ export function DashboardClient({
               <article className="rounded-2xl border border-[#edf0f4] bg-[#fbfcff] p-3">
                 <h3 className="text-sm font-semibold sm:text-base">Leaderboard</h3>
                 <ol className="mt-2 space-y-2">
-                  {leaderboard.slice(0, 8).map((entry, index) => (
+                  {activeLeaderboard.slice(0, 8).map((entry, index) => (
                     <li key={entry.id} className="flex items-center justify-between rounded-xl bg-white p-2 text-sm">
                       <div className="min-w-0">
                         <p className="truncate font-medium">
@@ -621,7 +633,7 @@ export function DashboardClient({
             <article className="mt-4 rounded-2xl border border-[#edf0f4] bg-[#fbfcff] p-3">
               <h3 className="text-sm font-semibold">Activity</h3>
               <div className="mt-2 space-y-2">
-                {leaderboard.slice(0, 6).map((entry) => (
+                {activeLeaderboard.slice(0, 6).map((entry) => (
                   <div key={entry.id} className="flex items-center gap-2 rounded-xl bg-white p-2">
                     <FaceImage name={entry.name} eliminated={eliminated.has(entry.id)} sizeClass="h-7 w-7" decorative />
                     <div className="min-w-0">
